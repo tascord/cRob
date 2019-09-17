@@ -1,0 +1,32 @@
+{
+  "1": {
+    "name": "1) Pastel Green Name Colour",
+    "price": 100,
+    "type": "role",
+    "rolename": "Pastel Green"
+  },
+  "2": {
+    "name": "2) Pastel Orange Name Colour",
+    "price": 150,
+    "type": "role",
+    "rolename": "Pastel Orange Name Colour"
+  },
+  "3": {
+    "name": "3) Pastel Pink Name Colour",
+    "price": 250,
+    "type": "role",
+    "rolename": "Pastel Pink"
+  },
+  "4": {
+    "name": "4) Pastel Blue Name Colour",
+    "price": 400,
+    "type": "role",
+    "rolename": "Pastel Blue"
+  },
+  "5": {
+    "name": "5) Pastel Purple Name Colour",
+    "price": 800,
+    "type": "role",
+    "rolename": "Pastel Purple"
+  }
+}
