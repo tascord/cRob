@@ -1,0 +1,31 @@
+{
+    "admin": [
+        {
+            "name": "clear",
+            "description": "bulk clear messages to tidy up channels",
+            "usage": "clear [value]"
+        }
+    ],
+
+    "chat": [
+        {
+            "name": "help",
+            "description": "shows this help message",
+            "usage": "help"
+        },
+        {
+            "name": "count",
+            "description": "play against the bot in a game to count to 21",
+            "usage": "count <'start' / value>"
+        },
+        {
+            "name": "ping",
+            "description": "show the response time from the API to the bot",
+            "usage": "ping"
+        }
+    ],
+
+    "music": [],
+
+    "currency": []
+}
