@@ -49,6 +49,9 @@ function preInit() {
             fs.writeFileSync('./config.json', JSON.stringify(_answers, null, 4));
             console.log('\n');
             log('Config file Generated!');
+
+            fs.writeFileSync('./stats.json', JSON.stringify(JSON.parse(`{ "_times": [], "guilds": [], "ping": [] }`), null, 4));
+
             init();
         });
     } else {
@@ -87,4 +90,5 @@ function events() {
     Client.on('disconnect', () => requireEvent('disconnect')(Client, chalk));
     Client.on('message', requireEvent('message'));
     Client.on('guildMemberAdd', requireEvent('guildMemberAdd'));
+
 }

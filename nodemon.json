@@ -1,5 +1,6 @@
 {
     "ignore": [
-        "/config.json"
+        "/config.json",
+        "/stats.json"
     ]
 }

@@ -1,6 +1,9 @@
 const config = require('../../config.json');
+
 const pti = require('png-to-ico');
 const fs = require('fs');
+
+const moment = require('moment');
 
 module.exports = (Client, chalk) => {
 
@@ -18,4 +21,34 @@ module.exports = (Client, chalk) => {
             .then(buf => {fs.writeFileSync('./services/web/media/favicon.ico', buf); log("Converted!")})
             .catch(err => {error(`Error converting favicon:\n${err.stack}`)});
     });
+
+    /* Generate Personalized CSS */
+    var colour = config.colour.replace("0x", "#");
+    var newCSS = fs.readFileSync('./services/web/media/css/main.css').toString();
+
+    if(colour != "#7289da") {
+        while(newCSS.indexOf('#7289da') > -1) {
+            newCSS = newCSS.replace("#7289da", colour);
+        }
+        fs.writeFileSync('./services/web/media/css/main.css', newCSS);
+    }
+
+    
+    var stats;
+
+    /* Stat Pushing */
+
+    const pingStat = setInterval(() => {
+        stats = JSON.parse(fs.readFileSync('./stats.json'));
+        
+        stats._times.push(moment().format("MMM Do HH:mm"));
+        
+        stats.ping.push(Math.trunc(Client.ping * 10) / 10);
+        stats.guilds.push(Client.guilds.size);
+
+
+        fs.writeFileSync('./stats.json', JSON.stringify(stats, null, 4));
+    }, 5000);
+    
+
 }
