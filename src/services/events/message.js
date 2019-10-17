@@ -5,7 +5,7 @@ module.exports = message => {
 
     const client = message.client;
     
-    const config = JSON.parse(fs.readFileSync('./config.json'));
+    const config = JSON.parse(fs.readFileSync('config.json'));
     
     /* Cut Out White Space In The Message */
     message.content = message.content.trim();
@@ -33,7 +33,7 @@ module.exports = message => {
         
         if(command == "suppressperm") {
             config.suppress.push(message.author.id);
-            fs.writeFileSync('./config.json', JSON.stringify(config, null, 4));
+            fs.writeFileSync('config.json', JSON.stringify(config, null, 4));
         
             log(`Added ${message.author.id} to the permission suppress list`);
             return send(createEmbed("I'll no longer bug you with permission error DM's"), 120);

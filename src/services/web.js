@@ -1,10 +1,17 @@
-const express = require('express');
+const fs = require('fs');
+const app = require('express')();
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser');
-const fs = require('fs');
 
-module.exports = (app, config) => {
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
+app.set("view-engine", "ejs");
+
+module.exports = (config) => {
+    
+    var port = process.env.PORT || config.port || 8080;
+    
     app.use(favicon(__dirname + '/web/media/favicon.ico'));
 
     app.get('/', (req, res) => {
@@ -27,16 +34,17 @@ module.exports = (app, config) => {
         res.sendFile(__dirname + '/web/media/css/main.css');
     });
 
-    app.listen(8080);
+    http.listen(port, () => {
+        log("Web Server Online!");
+    });
     
-    log("Web Server Online!");
 
     var stats;
     var pings;
     var guilds;
 
     function refreshStats() {
-        stats = JSON.parse(fs.readFileSync('./stats.json'));
+        stats = JSON.parse(fs.readFileSync('./src/stats.json'));
         
         times = stats._times;
         pings = stats.ping; 
@@ -47,9 +55,11 @@ module.exports = (app, config) => {
             guilds.shift();
             times.shift();
         }
+
+        io.emit('stats', [times, pings, guilds]);
     }
 
+    setInterval(() => {refreshStats();}, 2500);
     refreshStats();
-    setInterval(() => {refreshStats();}, 5000);
 
 }

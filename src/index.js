@@ -3,8 +3,6 @@
 /* Module Imports */
 const Discord = require('discord.js');
 const inquirer = require('inquirer');
-const express = require('express');
-const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const fs = require('fs');
 
@@ -25,7 +23,7 @@ const Client = new Discord.Client();
 preInit();
 
 function preInit() {
-    if(!fs.existsSync('./config.json')) {
+    if(!fs.existsSync('config.json')) {
         warn("No config file found, opening generation prompt...\n");
         inquirer.prompt([
             {name: 'name', message: 'What is my name?'},
@@ -44,13 +42,18 @@ function preInit() {
             if(!_answers.colour) _answers.colour = '0x7289da';
             else(_answers.colour) = '0x' + _answers.colour;
 
+            _answers.port = 8080;
             _answers.suppress = [];
             
-            fs.writeFileSync('./config.json', JSON.stringify(_answers, null, 4));
+            fs.writeFileSync('config.json', JSON.stringify(_answers, null, 4));
             console.log('\n');
-            log('Config file Generated!');
-
-            fs.writeFileSync('./stats.json', JSON.stringify(JSON.parse(`{ "_times": [], "guilds": [], "ping": [] }`), null, 4));
+            
+            fs.writeFileSync('./src/stats.json', JSON.stringify(JSON.parse(`{ "_times": [], "guilds": [], "ping": [] }`), null, 4));
+            
+            log('Config & Stats file Generated!');
+            log('Please restart the bot!');
+            process.exit(0);
+            
 
             init();
         });
@@ -62,7 +65,7 @@ function preInit() {
 
 function init() {
     /* Load The Config File */
-    const config = JSON.parse(fs.readFileSync('./config.json'));
+    const config = JSON.parse(fs.readFileSync('config.json'));
     log("Config file read & loaded!\n");
 
     events();
@@ -76,9 +79,7 @@ function init() {
 
     /* Start Web Server */
     log("Starting Web Server On Port 8080...");
-    const app = express();
-    app.set("view-engine", "ejs");
-    require("./services/web.js")(app, config);
+    require("./services/web.js")(config);
 }
 
 /* Client Events */

@@ -14,12 +14,12 @@ h1, h2, h3 {
 }
 
 .pc {
-  color: #7289da;
+  color: #6a00ff;
 }
 
 a {
   text-decoration: none;
-  color: #7289da;
+  color: #6a00ff;
 }
 
 .header {
@@ -58,11 +58,11 @@ a {
 }
 
 .header .navBar ul li :hover {
-  color: #7289da;
+  color: #6a00ff;
 }
 
 .header .navBar ul li .active {
-  color: #7289da;
+  color: #6a00ff;
 }
 
 p {
@@ -89,7 +89,7 @@ p {
   appearance: none;
   width: 15px;
   height: 15px;
-  background-color: #7289da;
+  background-color: #6a00ff;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -100,10 +100,5 @@ p {
 
 .slider:hover {
   opacity: 1;
-}
-
-.loginico {
-  height: 40%;
-  width: 40%;
 }
 /*# sourceMappingURL=main.css.map */

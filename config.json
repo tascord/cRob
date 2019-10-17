@@ -5,6 +5,7 @@
     "activity": "indan moonlight",
     "colour": "0x6a00ff",
     "token": "NTAzNDYxNjIyMjI1MDQzNDU2.XX9CXw.zEnF72AGYy_AAaY4-SUL6-nmsA0",
+    "port": 8080,
     "suppress": [
         "205811939861856257"
     ]

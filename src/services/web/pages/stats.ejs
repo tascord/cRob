@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" href="main.css">
 
+    <script src="/socket.io/socket.io.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
@@ -35,26 +37,30 @@
 
         var statsCtx = document.getElementById('stats').getContext('2d');
 
-        var times = [];
-        var pingData = [];
-        var guildData = [];
+        var times = "<%=times%>";
+        var pingData = "<%=pingData%>";
+        var guildData = "<%=guildData%>";
+
+        var _times = times.split(',');;
+        var _pingData = pingData.split(',');
+        var _guildData = guildData.split(',');
 
         var slidertime;
 
         var stats = new Chart(statsCtx, {
             type: 'line',
             data: {
-                labels: times,
+                labels: _times,
                 datasets: [{
                     label: 'Ping to API',
                     backgroundColor: 'rgba(132, 159, 255, 0.15)',
                     borderColor: 'rgb(114, 137, 218)',
-                    data: pingData
+                    data: _pingData
                 }, {
                     label: "Server Count",
                     backgroundColor: 'rgba(167, 132, 255, 0.15)',
                     borderColor: 'rgb(142, 112, 216)',
-                    data: guildData
+                    data: _guildData
                 }],
             },
             options: {
@@ -68,35 +74,44 @@
         update();
         
         function update() {
+
+            _times = times.split(',');
+            _pingData = pingData.split(',');
+            _guildData = guildData.split(',');
             
             var sliderValue = document.getElementById('time').value;
-            
-            times = "<%=times%>".split(",");
-            pingData = "<%=pingData%>".split(",");
-            guildData = "<%=guildData%>".split(",");
-            
-            document.getElementById('time').max = times.length;
-            
-            while (times.length > sliderValue) {
-                times.shift();
-                pingData.shift();
-                guildData.shift();
+                                    
+            while (_times.length > sliderValue) {
+                _times.shift();
+                _pingData.shift();
+                _guildData.shift();
             }
 
             stats.data.datasets.forEach((dataset) => {
-                if(dataset.label == "Ping to API") dataset.data = pingData;
-                if(dataset.label == "Server Count") dataset.data = guildData;
+                if(dataset.label == "Ping to API") dataset.data = _pingData;
+                if(dataset.label == "Server Count") dataset.data = _guildData;
             });
 
-            stats.data.labels = times;
+            stats.data.labels = _times;
 
-            stats.options.title.text = `Showing ${sliderValue} nodes.`;
+            stats.options.title.text = `Showing up to ${sliderValue} nodes.`;
 
             stats.chart.update();
 
     }
 
+    var socket = io();
+
+    socket.on('stats', data => {
+        times = data[0].join(',');
+        pingData = data[1].join(',');
+        guildData = data[2].join(',');
+
+        update();
+    });
+
     </script>
+
 
 </body>
 </html>
