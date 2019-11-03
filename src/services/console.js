@@ -5,7 +5,7 @@ module.exports = (chalk) => {
     }
 
     error = function(text) {
-        console.log(chalk.red('[!] ' + text));
+        console.log(chalk.red('\n[!] ' + text + '\n'));
     }
 
     warn = function(text) {

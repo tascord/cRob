@@ -24,21 +24,48 @@ module.exports = message => {
 
     //log(`${message.author.username}: [Command: ${command}] [Args: ${args.join(', ')}]\n`);
 
-
     try {
         
-        if(command != "suppressperm" && !fs.existsSync(`./services/commands/${command}.js`)) return;
-        if(command != "suppressperm" && message.guild == null) return;
-        let commandFile = require(`../commands/${command}`);
-        
-        if(command == "suppressperm") {
-            config.suppress.push(message.author.id);
-            fs.writeFileSync('config.json', JSON.stringify(config, null, 4));
-        
-            log(`Added ${message.author.id} to the permission suppress list`);
-            return send(createEmbed("I'll no longer bug you with permission error DM's"), 120);
+        //Dm commands like login, suppress perm etc
+        if(message.guild == null) {
+            
+            if(command == "suppressperm") {
+
+                if(config.suppress.indexOf(message.author.id) > -1) return send(createEmbed(`You're already on the supress list!\nUse \`${config.prefix}unsuppressperm\` to re-enable.`));
+
+                config.suppress.push(message.author.id);
+                fs.writeFileSync('config.json', JSON.stringify(config, null, 4));
+            
+                log(`Added ${message.author.id} to the permission suppress list`);
+                return send(createEmbed(`I'll no longer bug you with permission error DM's\nP.S use \`${config.prefix}unsuppressperm\` to re-enable.`), 120);
+            }
+
+            if(command == "unsuppressperm") {
+                
+                var userIndex = config.suppress.indexOf(message.author.id);
+                if(userIndex < 0) return send(createEmbed("Sorry, you're not currently in the suppress list!"));
+
+                warn(userIndex);
+
+                var suppress = config.suppress;
+
+                console.log('pr', suppress);
+
+                console.log(suppress.slice(0, 1));
+                
+                console.log('po', suppress);
+
+                fs.writeFileSync('config.json', JSON.stringify(config, null, 4));
+            
+                log(`Removed ${message.author.id} from the permission suppress list`);
+                return send(createEmbed("I'll continue to send you DM's if my permissions are messed up!"), 120);
+            }
+
         }
 
+        if(!fs.existsSync(`./services/commands/${command}.js`)) return;
+        let commandFile = require(`../commands/${command}`);
+        
         if(!message.guild.me.permissions.has(['SEND_MESSAGES'])) {
             if(config.suppress.indexOf(message.author.id) > -1) return;
             client.users.get(message.guild.ownerID).send(createEmbed(`Hello!\nOn your server \`${message.guild.name}\`, I don't have the permission \`SEND_MESSAGES\`, which is preventing me from being able to function properly. If you would be so kind, would you please provide me the permission?\n\nThank you\n- ${client.user.username}\n\n`)).then(message => {setTimeout(() => {message.delete();}, 600000); });

@@ -24,15 +24,15 @@ module.exports = (Client, chalk) => {
 
     /* Generate Personalized CSS */
     var colour = config.colour.replace("0x", "#");
-    var newCSS = fs.readFileSync('./src/services/web/media/css/main.css').toString();
+    var newCSS = fs.readFileSync('./src/services/web/media/css/main-source.css').toString();
 
     if(colour != "#7289da") {
         while(newCSS.indexOf('#7289da') > -1) {
             newCSS = newCSS.replace("#7289da", colour);
         }
-        fs.writeFileSync('./src/services/web/media/css/main.css', newCSS);
     }
-
+    
+    fs.writeFileSync('./src/services/web/media/css/main.css', newCSS);
     
     var stats;
 

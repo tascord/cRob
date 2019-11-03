@@ -5,26 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="main.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-
-    <title><%=botName%> | Home</title>
+    
+    <title><%=botName%> | Register</title>
 </head>
 <body>
     <div class="header">
-        <h1>Dashboard</h1>
+        <h1>Register</h1>
         <h3>this is an <a href="https://github.com/tascord/cRob">open source</a> bot</h3>
         
         <div class="navBar">
             <ul>
-                <li><a href="/" class="active">Home</a></li>
-                <li><a href="/<%=ldUrl%>"><%=ldLabel%></a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/<%=ldUrl%>" class="active"><%=ldLabel%></a></li>
                 <li><a href="/stats">Stats</a></li>
                 <li><a href="/about">About</a></li>
             </ul>
         </div>
     </div>
+
+    <form action="register" class="login">
+       
+        <div>
+            <h2>Register</h2>
+            <h3><a href="/login">Login</a></h3>
+        </div>
+        
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
 
 </body>
 </html>

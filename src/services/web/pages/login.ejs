@@ -16,12 +16,24 @@
         <div class="navBar">
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/login" class="active">Login</a></li>
+                <li><a href="/<%=ldUrl%>" class="active"><%=ldLabel%></a></li>
                 <li><a href="/stats">Stats</a></li>
                 <li><a href="/about">About</a></li>
             </ul>
         </div>
     </div>
+
+    <form action="/login" method="POST" class="login">
+       
+        <div>
+            <h2>Login</h2>
+            <h3><a href="/register">Register</a></h3>
+        </div>
+        
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
 
 </body>
 </html>

@@ -1,7 +1,9 @@
 const fs = require('fs');
 const app = require('express')();
 const favicon = require('serve-favicon')
+
 const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
 
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -14,30 +16,74 @@ module.exports = (config) => {
     
     app.use(favicon(__dirname + '/web/media/favicon.ico'));
 
-    app.get('/', (req, res) => {
-        res.render(__dirname + "/web/pages/index.ejs", {botName: config.name});
+    var lod = "Login";
+
+    app.get('*', (req, res) => {
+        
+        if(req.session) {}
+
+        switch(req.path) {
+            case "/":
+                res.render(page("index"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
+            break;
+
+            case "/about": 
+                res.render(page("about"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
+            break;
+
+            case "/stats": 
+                res.render(page("stats"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod, times: times, pingData: pings, guildData: guilds});
+            break;
+
+            case "/login":
+                res.render(page("login"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
+                break;
+                
+            case "/register":
+                lod = "Register"
+                res.render(page("register"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
+            break;    
+
+            case "/main.css": 
+                res.sendFile(media("css/main.css"));
+            break;
+
+            default: 
+                res.render(page("404"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
+            break
+
+        }
+
+
     });
 
-    app.get('/about', (req, res) => {
-        res.render(__dirname + "/web/pages/about.ejs", {botName: config.name});
+    app.post('/*', (req, res) => {
+
+        switch(req.path) {
+
+            case "/login":
+                console.log(req.body);
+
+                res.redirect("/login");
+            break;
+
+        }
+
     });
 
-    app.get('/stats', (req, res) => {
-        res.render(__dirname + "/web/pages/stats.ejs", {botName: config.name, times: times, pingData: pings, guildData: guilds});
-    });
-
-    app.get('/login', (req, res) => {
-        res.render(__dirname + "/web/pages/login.ejs", {botName: config.name});
-    });
-
-    app.get('/main.css', (req, res) => {
-        res.sendFile(__dirname + '/web/media/css/main.css');
-    });
 
     http.listen(port, () => {
         log("Web Server Online!");
     });
     
+
+    function page(pageName) {
+        return `${__dirname}/web/pages/${pageName}.ejs`;
+    }
+
+    function media(mediaPath) {
+        return `${__dirname}/web/media/${mediaPath}`;
+    }
 
     var stats;
     var pings;
@@ -63,3 +109,7 @@ module.exports = (config) => {
     refreshStats();
 
 }
+
+// Database For User Criedentials
+const bcrypt = require('bcryptjs');
+

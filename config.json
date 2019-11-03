@@ -3,7 +3,7 @@
     "prefix": "t",
     "activity_type": "LISTENING",
     "activity": "indan moonlight",
-    "colour": "0x6a00ff",
+    "colour": "0xffffff",
     "token": "NTAzNDYxNjIyMjI1MDQzNDU2.XX9CXw.zEnF72AGYy_AAaY4-SUL6-nmsA0",
     "port": 8080,
     "suppress": [
