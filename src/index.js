@@ -16,7 +16,7 @@ require('./services/download.js')(fs);
 require('./services/errorhandler.js')();
 
 /* Custom Module Server */
-require('./services/moduleLoader.js')();
+require('./services/moduleHandler.js')();
 
 /* Start The Program */
 clear();
@@ -76,7 +76,7 @@ function init() {
     /* Init & Login The Client */
     log('Logging in...\n')
     Client.login(config.token)
-        .then(() => {log(`Logged in! [${chalk.magenta(Client.user.tag)}]`)})
+        .then(() => {log(`Logged in! [${chalk.magenta(Client.user.tag)}]\n`, true)})
         .catch(() => {error("Error logging in! Make sure the token is correct, and that you have a stable internet connection"); process.exit(1);});
 
     /* Start Web Server */

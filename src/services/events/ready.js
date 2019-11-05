@@ -13,11 +13,11 @@ module.exports = (Client, chalk) => {
 
     Client.user.setActivity(config.activity, {type: config.activity_type});
 
-    log("Loading custom modules...");
+    log("Loading custom modules...", true);
     loadModules();
 
     /* Set Web Server's Favicon To Bot Icon */
-    log("Getting favicon for web server")
+    log("Getting favicon for web server", true)
     download(Client.user.avatarURL, './src/services/web/media/favicon.png', function(){
         log('Favicon Downloaded. Converting...');
         pti('./src/services/web/media/favicon.png')

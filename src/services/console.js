@@ -1,7 +1,11 @@
 module.exports = (chalk) => {
     
-    log = function(text) {
-        console.log(chalk.cyan('[+] ' + text));
+    log = function(text, nl) {
+
+        if(nl == true) nl = '\n';
+        else nl = '';
+        
+        console.log(nl + chalk.cyan('[+] ' + text));
     }
 
     error = function(text) {
