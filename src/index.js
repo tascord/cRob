@@ -15,6 +15,8 @@ require('./services/download.js')(fs);
 /* Error Handling */
 require('./services/errorhandler.js')();
 
+/* Custom Module Server */
+require('./services/moduleLoader.js')();
 
 /* Start The Program */
 clear();
