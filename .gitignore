@@ -1,3 +1,4 @@
 node_modules/
 src/stats.json
 config.json/
+src/services/web/media/favicon.png
