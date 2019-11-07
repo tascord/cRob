@@ -13,7 +13,7 @@ module.exports = (chalk) => {
     }
 
     warn = function(text) {
-        console.log(chalk.magenta('[️~] ' + text));
+        console.log(chalk.magenta('\n[️~] ' + text));
     }
 
     clear = function() {

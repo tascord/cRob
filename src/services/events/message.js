@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
+//Custom Modules
+require('../moduleHandler')(fs);
+
 module.exports = message => {
 
     const client = message.client;
@@ -61,6 +64,12 @@ module.exports = message => {
                 return send(createEmbed("I'll continue to send you DM's if my permissions are messed up!"), 120);
             }
 
+        }
+
+        //Custom modules
+        var module = getModuleFromCommand(command);
+        if(module) {
+            return require(`../../../modules${module.target}`).trigger(message, command, args);
         }
 
         if(!fs.existsSync(`./services/commands/${command}.js`)) return;

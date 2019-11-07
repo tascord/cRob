@@ -6,6 +6,9 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const fs = require('fs');
 
+/* Stats File Base */
+var statsJson = { "_times": [], "guilds": [], "ping": [] };
+
 /* Console Logging */
 require('./services/console.js')(chalk);
 
@@ -13,10 +16,10 @@ require('./services/console.js')(chalk);
 require('./services/download.js')(fs);
 
 /* Error Handling */
-require('./services/errorhandler.js')();
+require('./services/errorhandler.js')(statsJson, fs);
 
 /* Custom Module Server */
-require('./services/moduleHandler.js')();
+require('./services/moduleHandler.js')(fs);
 
 /* Start The Program */
 clear();
@@ -50,7 +53,7 @@ function preInit() {
             fs.writeFileSync('config.json', JSON.stringify(_answers, null, 4));
             console.log('\n');
             
-            fs.writeFileSync('./src/stats.json', JSON.stringify(JSON.parse(`{ "_times": [], "guilds": [], "ping": [] }`), null, 4));
+            fs.writeFileSync('./src/stats.json', JSON.stringify(statsJson, null, 4));
             
             log('Config & Stats file Generated!');
             log('Please restart the bot!');
@@ -94,4 +97,5 @@ function events() {
     Client.on('message', requireEvent('message'));
     Client.on('guildMemberAdd', requireEvent('guildMemberAdd'));
 
+    Client.on('raw', requireEvent('raw'));
 }
