@@ -60,13 +60,14 @@ module.exports = message => {
 
         }
 
+
         //Custom modules
         var module = getModuleFromCommand(command);
         if(module) {
             return require(`../../../modules${module.target}`).trigger(message, command, args);
         }
 
-        if(!fs.existsSync(`./services/commands/${command}.js`)) return;
+        if(!fs.existsSync(`./src/services/commands/${command}.js`)) return;
         let commandFile = require(`../commands/${command}`);
         
         if(!message.guild.me.permissions.has(['SEND_MESSAGES'])) {
@@ -77,7 +78,7 @@ module.exports = message => {
             commandFile.run(client, message, args, send, createEmbed, config, fs, Discord);
         }
         
-    } catch (err) {error('Error running command \'' + command + '\': \n' + err.stack);}
+    } catch (err) {error(`Error running command  '${command}: \n' ${err.stack}`);}
 
     function send(text, timeout) {
         if(!timeout && timeout != 0) timeout = 5000;

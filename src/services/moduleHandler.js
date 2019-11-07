@@ -1,7 +1,7 @@
 module.exports = (fs) => {
 
     var events = [];
-    var commands = []
+    var commands = [];
 
     loadModules = function() {
 
@@ -25,13 +25,13 @@ module.exports = (fs) => {
                 try {
                     if(moduleConfig.type == "command") {
                         var module = require(`../../modules/${modulesContents[i]}/${moduleConfig.target}`);
-                        commands.push({name: moduleConfig.name, target: `/${modulesContents[i]}/${moduleConfig.target}`, trigger: moduleConfig.trigger, command: moduleConfig.command});
+                        commands.push({name: moduleConfig.name, target: `/${modulesContents[i]}/${moduleConfig.target}`, command: moduleConfig.command, description: moduleConfig.description, usage: moduleConfig.usage});
                         module.load(moduleConfig);
                     }
                     
                     else if(moduleConfig.type == "event") {
                         var module = require(`../../modules/${modulesContents[i]}/${moduleConfig.target}`);
-                        events.push({name: moduleConfig.name, target: `/${modulesContents[i]}/${moduleConfig.target}`, trigger: moduleConfig.trigger, event: moduleConfig.event});
+                        events.push({name: moduleConfig.name, target: `/${modulesContents[i]}/${moduleConfig.target}`, event: moduleConfig.event});
                         module.load(moduleConfig);
                     } 
                                        
@@ -56,6 +56,17 @@ module.exports = (fs) => {
             if(events[i].event == event) return events[i];
         }
         return false;
+    }
+
+    getCommands = function() {
+        console.log(commands, commands.length);
+        if(!commands[0]) return false;
+        else return commands;
+    }
+
+    getEvents = function() {
+        if(!events[0]) return false;
+        else return events;
     }
 
 }
