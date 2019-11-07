@@ -52,12 +52,6 @@ module.exports = message => {
 
                 var suppress = config.suppress;
 
-                console.log('pr', suppress);
-
-                console.log(suppress.slice(0, 1));
-                
-                console.log('po', suppress);
-
                 fs.writeFileSync('config.json', JSON.stringify(config, null, 4));
             
                 log(`Removed ${message.author.id} from the permission suppress list`);
