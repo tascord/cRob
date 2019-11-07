@@ -18,7 +18,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
     if(modules) {
         text.push(`\n**Custom Commands**`);
         for(var i in modules) {
-            text.push(`**${modules[i].name}** - ${modules[i].description != undefined ? modules[i].description : "No description provided, who knows what this does"}. Usage: *${modules[i].usage}*`);
+            text.push(`**${modules[i].command}** - ${modules[i].description != undefined ? modules[i].description : "No description provided, who knows what this does"}. Usage: *${modules[i].usage}*`);
         }
     }
 
