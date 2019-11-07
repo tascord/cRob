@@ -1,5 +1,3 @@
-//NTAzNDYxNjIyMjI1MDQzNDU2.XX9CXw.zEnF72AGYy_AAaY4-SUL6-nmsA0
-
 /* Module Imports */
 const Discord = require('discord.js');
 const inquirer = require('inquirer');
@@ -28,6 +26,9 @@ const Client = new Discord.Client();
 preInit();
 
 function preInit() {
+
+    if(!fs.existsSync('./src/services/web/media/favicon.ico')) fs.writeFileSync('./src/services/web/media/favicon.ico', '');
+
     if(!fs.existsSync('config.json')) {
         warn("No config file found, opening generation prompt...\n");
         inquirer.prompt([
