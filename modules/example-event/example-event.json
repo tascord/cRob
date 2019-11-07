@@ -1,0 +1,11 @@
+{
+    "name": "Example Event",
+    "author": "tascord",
+    "website": "https://tascord.ai",
+    "version": "1.0.0",
+    "description": "An example module that simple echo's 'Hello World' to console when event 'MESSAGE_CREATE' is trigger",
+    "type": "event",
+    "event": "MESSAGE_CREATE",
+    "target": "example.js",
+    "usage": "example"
+}

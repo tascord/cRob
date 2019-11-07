@@ -1,0 +1,11 @@
+{
+    "name": "Example Command",
+    "author": "tascord",
+    "website": "https://tascord.ai",
+    "version": "1.0.0",
+    "description": "An example module that simple echo's 'Hello World' on recieving the command 'example'",
+    "type": "command",
+    "command": "example",
+    "target": "example.js",
+    "usage": "example"
+}
