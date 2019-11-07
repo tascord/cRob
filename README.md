@@ -8,11 +8,11 @@ Please make sure you have [NodeJS](https://nodejs.org) installed, its kinda impo
 
 ***
 ## Modules
-To learn about creating modules, head over to the [Modules Wiki Page](https://github.com/tascord/wiki/Modules) or head over to [The Module Spotlight](https://github.com/tascord/wiki/Module_Spotlight) to find some neat modules you might like!
+To learn about creating modules, head over to the [Modules Wiki Page](https://github.com/tascord/cRob/wiki/Modules) or head over to [The Module Spotlight](https://github.com/tascord/wiki/Module_Spotlight) to find some neat modules you might like!
 
 ***
 ## Bugs
-If you find any bugs, please read over [The Wiki](https://github.com/tascord/wiki/issues_and_errorrs) for some info on common issues and errors, check if your bug has been fixed / is being fixed by reading the [Todo List](https://github.com/tascord/cRob#Todo) and the [Issues Page](https://github.com/tascord/cRob/issues).
+If you find any bugs, please read over [The Wiki](https://github.com/tascord/cRob/wiki/issues_and_errorrs) for some info on common issues and errors, check if your bug has been fixed / is being fixed by reading the [Todo List](https://github.com/tascord/cRob#Todo) and the [Issues Page](https://github.com/tascord/cRob/issues).
 If you can't find anything, or the fix didn't work, please [Submit A Bug Report](https://github.com/tascord/CRob/issues/new?labels=bug&template=bug_report.md)
 
 ***
