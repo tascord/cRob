@@ -8,7 +8,7 @@ Please make sure you have [NodeJS](https://nodejs.org) installed, its kinda impo
 
 ***
 ## Modules
-To learn about creating modules, head over to the [Modules Wiki Page](https://github.com/tascord/cRob/wiki/Modules) or head over to [The Module Spotlight](https://github.com/tascord/wiki/Module-Spotlight) to find some neat modules you might like!
+To learn about creating modules, head over to the [Modules Wiki Page](https://github.com/tascord/cRob/wiki/Modules) or head over to [The Module Spotlight](https://github.com/tascord/cRob/wiki/Module-Spotlight) to find some neat modules you might like!
 
 ***
 ## Bugs
