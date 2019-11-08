@@ -2,6 +2,11 @@
 #### Modular easy Discord.JS Discord bot!
 
 ***
+## Forewarning
+This project is still in beta, the web dashboard, pre-installed commands & Wiki arent completely ready yet.
+If you find any issues in the beta, don't be suprised [See Issues](https://github.com/tascord/cRob#Bugs)
+
+***
 ## Download
 To download cRob in its most up to date form, head over to the [Releases Page](https://github.com/tascord/cRob/releases) and download the newest release.
 Please make sure you have [NodeJS](https://nodejs.org) installed, its kinda important!
