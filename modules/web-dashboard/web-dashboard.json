@@ -1,5 +1,0 @@
-{
-    "name": "web-dashboard",
-    "type": "constant",
-    "target": "webHandler.js"
-}

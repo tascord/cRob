@@ -1,6 +1,3 @@
 node_modules/
-src/stats.json
-src/services/web/media/favicon.png
-src/services/web/media/favicon.ico
-src/services/web/media/css/main.css
+modules/
 config.json
