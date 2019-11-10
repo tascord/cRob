@@ -4,9 +4,6 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const fs = require('fs');
 
-/* Stats File Base */
-var statsJson = { "_times": [], "guilds": [], "ping": [] };
-
 /* Console Logging */
 require('./services/console.js')(chalk);
 
@@ -14,7 +11,7 @@ require('./services/console.js')(chalk);
 require('./services/download.js')(fs);
 
 /* Error Handling */
-require('./services/errorhandler.js')(statsJson, fs);
+require('./services/errorHandler.js')(fs);
 
 /* Custom Module Server */
 require('./services/moduleHandler.js')(fs);
@@ -26,8 +23,6 @@ const Client = new Discord.Client();
 preInit();
 
 function preInit() {
-
-    if(!fs.existsSync('./src/services/web/media/favicon.ico')) fs.writeFileSync('./src/services/web/media/favicon.ico', '');
 
     if(!fs.existsSync('config.json')) {
         warn("No config file found, opening generation prompt...\n");
@@ -51,12 +46,7 @@ function preInit() {
             _answers.port = 8080;
             _answers.suppress = [];
             
-            fs.writeFileSync('config.json', JSON.stringify(_answers, null, 4));
-            console.log('\n');
-            
-            fs.writeFileSync('./src/stats.json', JSON.stringify(statsJson, null, 4));
-            
-            log('Config & Stats file Generated!');
+            log('Config file Generated!');
             log('Please restart the bot!');
             process.exit(0);
             
@@ -82,10 +72,6 @@ function init() {
     Client.login(config.token)
         .then(() => {log(`Logged in! [${chalk.magenta(Client.user.tag)}]\n`, true)})
         .catch(() => {error("Error logging in! Make sure the token is correct, and that you have a stable internet connection"); process.exit(1);});
-
-    /* Start Web Server */
-    log("Starting Web Server On Port 8080...");
-    require("./services/web.js")(config);
 }
 
 /* Client Events */

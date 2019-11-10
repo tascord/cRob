@@ -5,22 +5,39 @@ const favicon = require('serve-favicon')
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
+const session = require('express-session');
+
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 app.set("view-engine", "ejs");
 
 module.exports = (config) => {
+
+    //This is probably a terrible idea, but ill fix it later
+    app.use(session({
+        secret: config.token,
+        saveUninitialized: true,
+        resave: true
+    }))
     
     var port = process.env.PORT || config.port || 8080;
     
-    app.use(favicon(__dirname + '/web/media/favicon.ico'));
+    app.use(favicon(__dirname + '/media/favicon.ico'));
 
     var lod = "Login";
 
     app.get('*', (req, res) => {
         
         if(req.session) {}
+
+        if(req.path.indexOf('/p/') > -1) {
+            if(!fs.existsSync(`${__dirname}/media/${req.path.split('/')[2]}`)) return res.render(page("404"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
+            return res.sendFile(media('/css/main.css'));
+        }
 
         switch(req.path) {
             case "/":
@@ -36,6 +53,7 @@ module.exports = (config) => {
             break;
 
             case "/login":
+                lod = "Login"
                 res.render(page("login"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
                 break;
                 
@@ -43,10 +61,6 @@ module.exports = (config) => {
                 lod = "Register"
                 res.render(page("register"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
             break;    
-
-            case "/main.css": 
-                res.sendFile(media("css/main.css"));
-            break;
 
             default: 
                 res.render(page("404"),  {botName: config.name, ldUrl: lod.toLowerCase(), ldLabel: lod});
@@ -61,9 +75,8 @@ module.exports = (config) => {
 
         switch(req.path) {
 
-            case "/login":
+            case "/register":
                 console.log(req.body);
-
                 res.redirect("/login");
             break;
 
@@ -78,11 +91,11 @@ module.exports = (config) => {
     
 
     function page(pageName) {
-        return `${__dirname}/web/pages/${pageName}.ejs`;
+        return `${__dirname}/pages/${pageName}.ejs`;
     }
 
     function media(mediaPath) {
-        return `${__dirname}/web/media/${mediaPath}`;
+        return `${__dirname}/media/${mediaPath}`;
     }
 
     var stats;
@@ -90,7 +103,7 @@ module.exports = (config) => {
     var guilds;
 
     function refreshStats() {
-        stats = JSON.parse(fs.readFileSync('./src/stats.json'));
+        stats = JSON.parse(fs.readFileSync(`${__dirname}/stats.json`));
         
         times = stats._times;
         pings = stats.ping; 

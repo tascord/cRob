@@ -3,7 +3,7 @@ module.exports = (fs) => {
     var events = [];
     var commands = [];
 
-    loadModules = function() {
+    loadModules = function(client, clientConfig) {
 
         if(!fs.existsSync('./modules')) return log('No modules installed, skipping!');
 
@@ -17,8 +17,8 @@ module.exports = (fs) => {
                 try{var moduleConfig = JSON.parse(fs.readFileSync(`./modules/${modulesContents[i]}/${modulesContents[i]}.json`).toString()); } catch (err) {warn(`Module '${modulesContents[i]}' dosen't have a valid json file. Skipping load. (${err.message})`); continue;}
             
                 if(!moduleConfig.name || !moduleConfig.type || !moduleConfig.target) {warn(`Module '${modulesContents[i]}' dosen't have a valid json file. Skipping load. (Missing name, type or target)`); continue;}
-                else if(!moduleConfig.command && !moduleConfig.event) {warn(`Module '${modulesContents[i]}' dosen't have a valid json file. Skipping load. (Missing module type)`); continue;}
-                else if(moduleConfig.type != "command" && moduleConfig.type != "event") {warn(`Module '${modulesContents[i]}' dosen't have a valid json file. Skipping load. (Invalid module type)`); continue;}
+                else if(moduleConfig.type != "constant" && !moduleConfig.command && !moduleConfig.event) {warn(`Module '${modulesContents[i]}' dosen't have a valid json file. Skipping load. (Missing module type)`); continue;}
+                else if(moduleConfig.type != "command" && moduleConfig.type != "event" && moduleConfig.type != "constant") {warn(`Module '${modulesContents[i]}' dosen't have a valid json file. Skipping load. (Invalid module type)`); continue;}
                 else if(moduleConfig.type == "command" && !moduleConfig.usage) {warn(`Module '${modulesContents[i]}' dosen't have a valid json file. Skipping load. (Missing command usage)`); continue;}
                 else if(!fs.existsSync(`./modules/${modulesContents[i]}/${moduleConfig.target}`)) {warn(`Module '${modulesContents[i]}' target ('${moduleConfig.target}') dosen't exist`); continue;}
 
@@ -34,9 +34,14 @@ module.exports = (fs) => {
                         events.push({name: moduleConfig.name, target: `/${modulesContents[i]}/${moduleConfig.target}`, event: moduleConfig.event});
                         module.load(moduleConfig);
                     } 
+
+                    else if(moduleConfig.type == "constant") {
+                        var module = require(`../../modules/${modulesContents[i]}/${moduleConfig.target}`);
+                        module.load(moduleConfig, clientConfig, client);
+                    }
                                        
                  } catch (err) {
-                    return warn(`Error instantiating module '${modulesContents[i]}': ${err.message}`);
+                    return warn(`Error instantiating module '${modulesContents[i]}':\n${err.stack}`);
                 }
 
             }

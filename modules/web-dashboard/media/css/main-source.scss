@@ -128,7 +128,7 @@ p {
 
 .login {
 
-  margin-top: 20%;
+  margin-top: 40vh;
   width: 100%;
 
   display: flex;
@@ -179,4 +179,14 @@ p {
     }
   }
 
+}
+
+.para {
+  margin-top: 50vh;
+  text-align: center;
+  font-size: 22.5px;
+
+  b {
+    font-size: 25px;
+  }
 }
