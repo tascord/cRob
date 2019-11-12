@@ -46,6 +46,8 @@ function preInit() {
             _answers.port = 8080;
             _answers.suppress = [];
             
+            fs.writeFileSync('config.json', JSON.stringify(_answers, null, 4));
+            
             log('Config file Generated!');
             log('Please restart the bot!');
             process.exit(0);
