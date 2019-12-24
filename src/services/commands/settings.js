@@ -13,7 +13,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
      */
 
     var server = sm.getServer(message.guild.id);
-    if(server == false) server = sm.createServer({id: message.guild.id, ownerId: message.guild.ownerID, roles: [], pallettes: []});
+    if(server == false) server = sm.createServer({id: message.guild.id, ownerId: message.guild.ownerID, roles: [], pallettes: [], welcome: {}});
 
     if(!args[0]) {
 
@@ -25,7 +25,14 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
 
         if(rolePickerContent == "") rolePickerContent = "The server dosen't have any roles set up yet!"; 
 
-        return send(createEmbed(`Your Server Settings`, [{title: "Server ID", data: server.id}, {title: "Owner ID", data: server.ownerId}, {title: "Role Picker Roles", data: rolePickerContent}]));
+        var welcomeChannel;
+        if(!welcomeChannel) welcome = "Not Set";
+        else {
+            if(!message.guild.channels.get(server.welcome.channel)) welcome = "A channel that no longer exists!";
+            else welcomeChannel = message.guild.channels.get(server.welcome.channel);
+        }
+
+        return send(createEmbed(`Your Server Settings`, [{title: "Server ID", data: server.id}, {title: "Owner ID", data: server.ownerId}, {title: "Welcome Channel", data: welcomeChannel}, {title: "Welcome Image", data: server.welcome.image ? server.welcome.image : "Not Set!"}, {title: "Role Picker Roles", data: rolePickerContent}]));
     
     }
 
@@ -58,6 +65,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
         case "welcome":
         
             if(!message.member.permissions.has(["MANAGE_CHANNELS"])) return send(createEmbed("You don't have the required permissions. [`MANAGE_CHANNELS`]"));
+            if(!server.welcome) server.welcome = {};
 
             command = args.shift();
 
@@ -81,7 +89,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
                     
                     if(!message.guild.channels.get(channelID)) return send(createEmbed("You haven't provided me a valid channel!"));
         
-                    try { sm.sendWelcomeMessage(client, message.guild.id, "New Welcome Channel (Here)!", "This Change Was Made By:", message.member.displayName, '', '', '', [2.5, 1.75, 1.2]); } catch (err) { return send(createEmbed("I couldn't send a message in that channel. Please make sure it still exists, and that I have permission to talk there!")); } 
+                    sm.sendWelcomeMessage(client, message.guild.id, "New Welcome Channel (Here)!", "This Change Was Made By:", message.member.displayName, '', '', '', [2.85, 1.85, 1.4]);
                     
                     server.welcome.channel = channelID;
                     sm.modifyServer(message.guild.id, server);
@@ -103,6 +111,8 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
                         return sm.sendModMessage(client, server.id, `Removed the welcome image\nThis change was made by: ${message.author}`);
                         
                     }
+
+                    send(createEmbed("Please keep in mind the welcome image is designed for a [1092 : 468] resolution.", [], "If any problems arise (messages not sending, cropping issues etc) please make your image the above resolution."));
                     
                     if(args[0].indexOf('http://') <= -1 && args[0].indexOf('https://') <= -1) return send(createEmbed("You haven't provided me a link to an image!"));
                     
@@ -119,8 +129,8 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
                     
                     send(createEmbed(`Set the welcome image!`));
 
-                    sm.sendWelcomeMessage(client, message.guild.id, "New Welcome Image!", "This Change Was Made By:", message.member.displayName, '', '', '', [2.5, 1.75, 1.2]);
-                    sm.sendModMessage(client, server.id, `Removed a role to the role picker ($${role})\nThis change was made by: ${message.author}`);
+                    sm.sendWelcomeMessage(client, message.guild.id, "New Welcome Image!", "This Change Was Made By:", message.member.displayName, '', '', '', [2.85, 1.85, 1.4]);
+                    sm.sendModMessage(client, server.id, `Changed the welcome image (now ${server.welcome.image})\nThis change was made by: ${message.author}`);
 
                     
                 break;

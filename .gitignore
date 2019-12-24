@@ -2,3 +2,4 @@ node_modules/
 modules/
 config.json
 src/services/servers/servers.json
+src/services/servers/servers.json

@@ -79,7 +79,7 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
 
     const applyText = (canvas, text) => {
         const ctx = canvas.getContext('2d');
-        let fontSize = 70;
+        let fontSize = 60;
     
         do {
             ctx.font = `${fontSize -= 5}px sans-serif`;
@@ -100,9 +100,9 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
     if(!memberImage) memberImage = client.user.avatarURL;
 
     if(!sizing) sizing = [];
-    if(!sizing[0]) sizing = [3.5, 1.75, 1.3];
-    if(!sizing[1]) sizing[1] = 1.75;
-    if(!sizing[2]) sizing[2] = 1.3;
+    if(!sizing[0]) sizing = [2.75, 1.85, 1.4];
+    if(!sizing[1]) sizing[1] = 1.85;
+    if(!sizing[2]) sizing[2] = 1.4;
 
     if(typeof topText != "message") topText    = `${topText}`;
     if(typeof topText != "message") middleText = `${middleText}`;
@@ -128,7 +128,7 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
 
     var backgroundURL = server.welcome.image || "http://tascord.ai/media/default_member_join.png";
 
-    const canvas = Canvas.createCanvas(700, 250);
+    const canvas = Canvas.createCanvas(1092, 468);
     const ctx = canvas.getContext('2d');
     
     background = await Canvas.loadImage(backgroundURL);
@@ -137,24 +137,25 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
     
     ctx.font = applyText(canvas, topText);
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(topText, canvas.width / 2.5, canvas.height / sizing[0]);
+    ctx.fillText(topText, canvas.width / 4, canvas.height / sizing[0]);
     
     ctx.font = applyText(canvas, middleText);
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(middleText, canvas.width / 2.5, canvas.height / sizing[1]);
+    ctx.fillText(middleText, canvas.width / 4, canvas.height / sizing[1]);
     
     ctx.font = applyText(canvas, bottomText);
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(bottomText, canvas.width / 2.5, canvas.height / sizing[2]);
+    ctx.fillText(bottomText, canvas.width / 4, canvas.height / sizing[2]);
        
+
     if(memberImage != undefined) {
         ctx.beginPath();
-        ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+        ctx.arc(150, 225, 100, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.clip();
 
         const avatar = await Canvas.loadImage(memberImage);
-        ctx.drawImage(avatar, 25, 25, 200, 200);
+        ctx.drawImage(avatar, 50, 125, 200, 200);
     }
     
     const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
