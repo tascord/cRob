@@ -77,12 +77,14 @@ function sendModMessage(client, serverID, modMessage) {
 
 async function sendWelcomeMessage(client, serverID, topText, middleText, bottomText, memberName, memberImage, memberCount, sizing) {
 
+    Canvas.registerFont('./src/fonts/OSr.ttf', { family: 'Open Sans' });
+
     const applyText = (canvas, text) => {
         const ctx = canvas.getContext('2d');
         let fontSize = 60;
     
         do {
-            ctx.font = `${fontSize -= 5}px sans-serif`;
+            ctx.font = `${fontSize -= 5}px Open Sans`;
         } while (ctx.measureText(text).width > canvas.width - 300);
     
         return ctx.font;
