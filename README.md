@@ -3,7 +3,7 @@
 
 ***
 ## Forewarning
-This project is still in beta, the commands, pre-installed modules & Wiki aren't completely ready yet. If you find any issues in the beta, don't be surprised. [See Issues](https://github.com/tascord/cRob#Bugs).
+This project is still in beta, and this is the BETA branch, so expect way more issues, the commands, pre-installed modules & Wiki aren't completely ready yet. If you find any issues in the beta, don't be surprised. [See Issues](https://github.com/tascord/cRob#Bugs).
 
 ***
 ## Download
