@@ -1,23 +1,23 @@
 module.exports = (chalk) => {
     
-    log = function(text, nl) {
+    info = function(text, nl) {
 
         if(nl == true) nl = '\n';
         else nl = '';
         
-        console.log(nl + chalk.cyan('[+] ' + text));
+        console.info(nl + chalk.cyan('[+] ' + text));
     }
 
     error = function(text) {
-        console.log(chalk.red('\n[!] ' + text + '\n'));
+        console.info(chalk.red('\n[!] ' + text + '\n'));
     }
 
     warn = function(text) {
-        console.log(chalk.magenta('\n[️~] ' + text));
+        console.info(chalk.magenta('\n[️~] ' + text));
     }
 
     clear = function() {
-        console.log("\033[2J")
+        console.info("\033[2J")
     }
 
 }

@@ -1,5 +1,8 @@
-//Get commands list
+// Get commands list
 const commands = require('./_commands.json');
+
+// Module Handler
+const mh = require('../moduleHandler');
 
 exports.run = (client, message, args, send, createEmbed, config, fs, Discord) => {
 
@@ -14,7 +17,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
         }
     }
 
-    var modules = getCommands();
+    var modules = mh.getCommands();
     if(modules) {
         text.push(`\n**Custom Commands**`);
         for(var i in modules) {

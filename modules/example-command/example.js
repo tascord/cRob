@@ -29,7 +29,7 @@ module.exports = {
         **/
 
         config = _config;
-        log(`${config.name} v${config.version} loaded!`);
+        info(`${config.name} v${config.version} loaded!`);
     },
 
     reload: function(_config) {
@@ -47,7 +47,7 @@ module.exports = {
         **/
 
         config = _config;
-        log(`${config.name} reloaded!`);
+        info(`${config.name} reloaded!`);
     },
 
     trigger: function(message, command, args) {

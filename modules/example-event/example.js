@@ -4,7 +4,7 @@ config = {}; // Store an unpopulted version of the config object for use later.
  
  > Logging Tools 
  
- * Log()   - Log data to console     - [+] (Cyan) 
+ * info()   - Log data to console     - [+] (Cyan) 
  * Warn()  - Send warning to console - [~] (Magenta)
  * Error() - Send error to console   - [!] (Red)
    
@@ -29,7 +29,7 @@ module.exports = {
         **/
 
         config = _config;
-        log(`${config.name} v${config.version} loaded!`);
+        info(`${config.name} v${config.version} loaded!`);
     },
 
     reload: function(_config) {
@@ -47,7 +47,7 @@ module.exports = {
         **/
 
         config = _config;
-        log(`${config.name} reloaded!`);
+        info(`${config.name} reloaded!`);
     },
 
     trigger: function(event) {
@@ -63,7 +63,7 @@ module.exports = {
         
         **/
 
-        warn('Hello World!');
+        // warn('Hello World!');
     }
 
 }

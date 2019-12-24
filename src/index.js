@@ -13,12 +13,10 @@ require('./services/download.js')(fs);
 /* Error Handling */
 require('./services/errorHandler.js')(fs);
 
-/* Custom Module Server */
-require('./services/moduleHandler.js')(fs);
 
 /* Start The Program */
 clear();
-log('Welcome to cRob :]\n');
+info('Welcome to cRob :]\n');
 const Client = new Discord.Client();
 preInit();
 
@@ -46,15 +44,15 @@ function preInit() {
             _answers.port = 8080;
             _answers.suppress = [];
             
-            log('Config file Generated!');
-            log('Please restart the bot!');
+            info('Config file Generated!');
+            info('Please restart the bot!');
             process.exit(0);
             
 
             init();
         });
     } else {
-        log('Found config file, reading...');
+        info('Found config file, reading...');
         init();
     }
 }
@@ -62,15 +60,15 @@ function preInit() {
 function init() {
     /* Load The Config File */
     const config = JSON.parse(fs.readFileSync('config.json'));
-    log("Config file read & loaded!\n");
+    info("Config file read & loaded!\n");
 
     events();
-    log('Loaded events!')
+    info('Loaded events!')
 
     /* Init & Login The Client */
-    log('Logging in...\n')
+    info('Logging in...\n')
     Client.login(config.token)
-        .then(() => {log(`Logged in! [${chalk.magenta(Client.user.tag)}]\n`, true)})
+        .then(() => {info(`Logged in! [${chalk.magenta(Client.user.tag)}]\n`, true)})
         .catch(() => {error("Error logging in! Make sure the token is correct, and that you have a stable internet connection"); process.exit(1);});
 }
 
@@ -84,5 +82,5 @@ function events() {
     Client.on('message', requireEvent('message'));
     Client.on('guildMemberAdd', requireEvent('guildMemberAdd'));
 
-    Client.on('raw', requireEvent('raw'));
+    Client.on('raw', requireEvent('raw').bind(null, Client));
 }
