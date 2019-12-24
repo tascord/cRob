@@ -15,7 +15,19 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
     var server = sm.getServer(message.guild.id);
     if(server == false) server = sm.createServer({id: message.guild.id, ownerId: message.guild.ownerID, roles: [], pallettes: []});
 
-    if(!args[0]) return send(createEmbed("<Insert Server Settings Here>"));
+    if(!args[0]) {
+
+        var rolePickerContent = "";
+        
+        for(var i = 0; i < server.roles.length; i++) {
+            rolePickerContent += `${server.roles[i].emoji} | ${message.guild.roles.get(server.roles[i].role) ? message.guild.roles.get(server.roles[i].role) : "An invalid role :("}\n`;
+        }
+
+        if(rolePickerContent == "") rolePickerContent = "The server dosen't have any roles set up yet!"; 
+
+        return send(createEmbed(`Your Server Settings`, [{title: "Server ID", data: server.id}, {title: "Owner ID", data: server.ownerId}, {title: "Role Picker Roles", data: rolePickerContent}]));
+    
+    }
 
     var command = args.shift();
 

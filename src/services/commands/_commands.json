@@ -4,6 +4,11 @@
             "name": "clear",
             "description": "bulk clear messages to tidy up channels",
             "usage": "clear [value]"
+        },
+        {
+            "name": "settings",
+            "description": "change settings about your server",
+            "usage": "settings [modlog / welcome / roles / leave blank for list] [arguments]"
         }
     ],
 
@@ -22,6 +27,11 @@
             "name": "ping",
             "description": "show the response time from the API to the bot",
             "usage": "ping"
+        },
+        {
+            "name": "pallette",
+            "description": "a role pallete (role picker)",
+            "usage": "pallette [persistent (`MANAGE_ROLES`)]"
         }
     ],
 
