@@ -77,7 +77,7 @@ module.exports = message => {
         
         if(!message.guild.me.permissions.has(['SEND_MESSAGES'])) {
             if(config.suppress.indexOf(message.author.id) > -1) return;           
-            sm.sendModMessage(guild, message.guild.id, createEmbed("Sorry to bother you, but I don't have the permission `SEND_MESSAGES`, in some channels, which is preventing me from running correcly!"))
+            sm.sendModMessage(guild, message.guild.id, createEmbed(`Sorry to bother you, but I don't have the permission \`SEND_MESSAGES\`, in some channels, which is preventing me from running correcly!\n\n*p.s, to disable this message, reply with \`${config.prefix}suppressperm\``))
         } else {
             commandFile.run(client, message, args, send, createEmbed, config, fs, Discord);
         }
