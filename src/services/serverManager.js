@@ -129,7 +129,7 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
         bottomText = bottomText.replace('%n', memberName);
     }   
 
-    var backgroundURL = server.welcome.image || "http://tascord.ai/media/default_member_join.png";
+    var backgroundURL = server.welcome.image || "https://raw.githubusercontent.com/tascord/CRob/master/src/Default%20Header.png";
 
     const canvas = Canvas.createCanvas(1092, 468);
     const ctx = canvas.getContext('2d');
