@@ -46,7 +46,7 @@
         {
             "name": "pallette",
             "description": "a role pallete (role picker)",
-            "usage": "pallette [persistent (`MANAGE_ROLES`)]"
+            "usage": "pallette [persistent]"
         },
         {
             "name": "invite",
