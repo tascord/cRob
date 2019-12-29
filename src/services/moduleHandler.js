@@ -1,13 +1,16 @@
-module.exports = (fs) => {
+const fs = require('fs');
 
-    var events = [];
-    var commands = [];
+var events = [];
+var commands = [];
 
-    loadModules = function(client, clientConfig) {
+module.exports = {
 
-        if(!fs.existsSync('./modules')) return log('No modules installed, skipping!');
+    loadModules: function(client, clientConfig) {
+
+        if(!fs.existsSync('./modules')) return info('No modules installed, skipping!');
 
         var modulesContents = fs.readdirSync('./modules');
+        const ce = require('./extentions/constantExtentions');
 
         for(var i in modulesContents) {
 
@@ -37,7 +40,7 @@ module.exports = (fs) => {
 
                     else if(moduleConfig.type == "constant") {
                         var module = require(`../../modules/${modulesContents[i]}/${moduleConfig.target}`);
-                        module.load(moduleConfig, clientConfig, client);
+                        module.load(moduleConfig, clientConfig, client, ce);
                     }
                                        
                  } catch (err) {
@@ -47,29 +50,28 @@ module.exports = (fs) => {
             }
         }
 
-    }
+    },
 
-    getModuleFromCommand = function(command) {
+    getModuleFromCommand: function(command) {
         for(var i in commands) {
             if(commands[i].command == command) return commands[i];
         }
         return false;
-    }
+    },
 
-    getModuleFromEvent = function(event) {
+    getModuleFromEvent: function(event) {
         for(var i in events) {
             if(events[i].event == event) return events[i];
         }
         return false;
-    }
+    },
 
-    getCommands = function() {
-        console.log(commands, commands.length);
+    getCommands: function() {
         if(!commands[0]) return false;
         else return commands;
-    }
+    },
 
-    getEvents = function() {
+    getEvents: function() {
         if(!events[0]) return false;
         else return events;
     }

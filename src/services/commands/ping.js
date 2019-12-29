@@ -13,9 +13,6 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
         }
     }
 
-    var embed = new Discord.RichEmbed()
-        .setColor(config.colour)
-        .setAuthor('Pong! ' + Math.trunc(client.ping * 10) / 10 + 'ms', client.user.avatarURL);
-    send(embed, 20);
+    send(createEmbed('', '', '', `Pong! ${Math.trunc(client.ping * 10) / 10}ms`));
 
 }

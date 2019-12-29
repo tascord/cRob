@@ -1,5 +1,8 @@
-//Get commands list
+// Get commands list
 const commands = require('./_commands.json');
+
+// Module Handler
+const mh = require('../moduleHandler');
 
 exports.run = (client, message, args, send, createEmbed, config, fs, Discord) => {
 
@@ -14,7 +17,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
         }
     }
 
-    var modules = getCommands();
+    var modules = mh.getCommands();
     if(modules) {
         text.push(`\n**Custom Commands**`);
         for(var i in modules) {
@@ -26,12 +29,12 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
         "Command List & Help",
         [
             {
-                title: "**Commands**\nKey: <mandatory> [optional]",
+                title: "**Commands**\nKey: <mandatory> [optional] (permissions needed)",
                 data: text.join('\n')
             },
             {
                 title: "**Bugs, Hanging & Crashing**",
-                data: "If a command you're running is behaving unexpectedly, hanging or crashing the bot, please report it [here](https://tascord.ai/bots/issues)."
+                data: "If a command you're running is behaving unexpectedly, hanging or crashing the bot, please report it [here](https://github.com/tascord/cRob)."
             }
         ]
     ), 30);

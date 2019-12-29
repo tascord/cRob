@@ -2,7 +2,10 @@ const Discord = require('discord.js');
 const fs = require('fs');
 
 //Custom Modules
-require('../moduleHandler')(fs);
+const mh = require('../moduleHandler');
+
+//Server Management
+const sm = require('../serverManager');
 
 module.exports = message => {
 
@@ -13,11 +16,13 @@ module.exports = message => {
     /* Cut Out White Space In The Message */
     message.content = message.content.trim();
 
+    // info(message.content)
+
     /* If The Message Author Is A Bot Or Sends An Embed Ignore It */
     if(message.author.bot || !message.content) return;
     
     /* If Someone Tags The Bot Give Them Some Help */
-    if(message.content == `<@${client.user.id}>`) send(createEmbed(`Hello ${message.member.nickname ? message.member.nickname : message.author.username}! If you need any help, run \`${config.prefix}help\``), 10)
+    if(message.content == `<@!${client.user.id}>`) send(createEmbed(`Hello ${message.member.displayName}! If you need any help, run \`${config.prefix}help\``), 10)
 
     /* If Someone Dosen't Use The Prefix, Ignore it */
     if(!message.content.startsWith(config.prefix)) return;
@@ -25,7 +30,7 @@ module.exports = message => {
     const args = message.content.slice(config.prefix.length).split(' ');
     const command = args.shift().toLowerCase();
 
-    //log(`${message.author.username}: [Command: ${command}] [Args: ${args.join(', ')}]\n`);
+    //info(`${message.author.username}: [Command: ${command}] [Args: ${args.join(', ')}]\n`);
 
     try {
         
@@ -39,7 +44,7 @@ module.exports = message => {
                 config.suppress.push(message.author.id);
                 fs.writeFileSync('config.json', JSON.stringify(config, null, 4));
             
-                log(`Added ${message.author.id} to the permission suppress list`);
+                info(`Added ${message.author.id} to the permission suppress list`);
                 return send(createEmbed(`I'll no longer bug you with permission error DM's\nP.S use \`${config.prefix}unsuppressperm\` to re-enable.`), 120);
             }
 
@@ -54,7 +59,7 @@ module.exports = message => {
 
                 fs.writeFileSync('config.json', JSON.stringify(config, null, 4));
             
-                log(`Removed ${message.author.id} from the permission suppress list`);
+                info(`Removed ${message.author.id} from the permission suppress list`);
                 return send(createEmbed("I'll continue to send you DM's if my permissions are messed up!"), 120);
             }
 
@@ -62,7 +67,7 @@ module.exports = message => {
 
 
         //Custom modules
-        var module = getModuleFromCommand(command);
+        var module = mh.getModuleFromCommand(command);
         if(module) {
             return require(`../../../modules${module.target}`).trigger(message, command, args);
         }
@@ -71,9 +76,8 @@ module.exports = message => {
         let commandFile = require(`../commands/${command}`);
         
         if(!message.guild.me.permissions.has(['SEND_MESSAGES'])) {
-            if(config.suppress.indexOf(message.author.id) > -1) return;
-            client.users.get(message.guild.ownerID).send(createEmbed(`Hello!\nOn your server \`${message.guild.name}\`, I don't have the permission \`SEND_MESSAGES\`, which is preventing me from being able to function properly. If you would be so kind, would you please provide me the permission?\n\nThank you\n- ${client.user.username}\n\n`)).then(message => {setTimeout(() => {message.delete();}, 600000); });
-            client.users.get(message.guild.ownerID).send(createEmbed(`PS: To stop recieving these messages, please respond with \`${config.prefix}suppressperm\``)).then(message => {setTimeout(() => {message.delete();}, 600000); }); 
+            if(config.suppress.indexOf(message.author.id) > -1) return;           
+            sm.sendModMessage(guild, message.guild.id, createEmbed(`Sorry to bother you, but I don't have the permission \`SEND_MESSAGES\`, in some channels, which is preventing me from running correcly!\n\n*p.s, to disable this message, reply with \`${config.prefix}suppressperm\``))
         } else {
             commandFile.run(client, message, args, send, createEmbed, config, fs, Discord);
         }
