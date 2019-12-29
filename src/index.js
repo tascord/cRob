@@ -45,7 +45,11 @@ function preInit() {
             _answers.suppress = [];
             
             info('Config file Generated!');
+         
             info('Please restart the bot!');
+          
+            fs.writeFileSync('config.json', JSON.stringify(_answers, null, 4));
+          
             process.exit(0);
             
 
