@@ -12,7 +12,7 @@
         },
         {
             "name": "message",
-            "description": "sends an embed with your message's content",
+            "description": "sends an embed",
             "usage": "message <message>"
         },
         {
