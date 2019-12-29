@@ -59,7 +59,7 @@ function sendModMessage(client, serverID, modMessage) {
     var channel = guild.channels.get(server.modLog);
 
     const embed = new Discord.RichEmbed()
-    .setColor(0x7289da);
+        .setColor(0x7289da);
         
     if(!client.guilds.get(server.id).me.permissions.has(['SEND_MESSAGES']) || !channel) {
         embed.setTitle("Can't send message!");
