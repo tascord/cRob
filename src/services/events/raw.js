@@ -5,6 +5,9 @@ const fs = require('fs');
 const mh = require('../moduleHandler');
 const sm = require('../serverManager');
 
+//ClientExtentions
+const ce = require('../extentions/clientExtentions');
+
 module.exports = (client, event) => {
 
     if(event.t == null) return;

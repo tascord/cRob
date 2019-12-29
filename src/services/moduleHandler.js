@@ -5,12 +5,12 @@ var commands = [];
 
 module.exports = {
 
-
     loadModules: function(client, clientConfig) {
 
         if(!fs.existsSync('./modules')) return info('No modules installed, skipping!');
 
         var modulesContents = fs.readdirSync('./modules');
+        const ce = require('./extentions/constantExtentions');
 
         for(var i in modulesContents) {
 
@@ -40,7 +40,7 @@ module.exports = {
 
                     else if(moduleConfig.type == "constant") {
                         var module = require(`../../modules/${modulesContents[i]}/${moduleConfig.target}`);
-                        module.load(moduleConfig, clientConfig, client);
+                        module.load(moduleConfig, clientConfig, client, ce);
                     }
                                        
                  } catch (err) {
