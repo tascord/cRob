@@ -2,6 +2,7 @@ const fs = require('fs');
 const Canvas = require('canvas');
 const Discord = require('discord.js');
 
+if(!fs.existsSync('./src/services/servers/')) fs.mkdirSync('./src/services/servers');
 if(!fs.existsSync('./src/services/servers/servers.json')) fs.writeFileSync('./src/services/servers/servers.json', '[]');
 var servers = JSON.parse(fs.readFileSync('./src/services/servers/servers.json'));
 
