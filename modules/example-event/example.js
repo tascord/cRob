@@ -63,7 +63,7 @@ module.exports = {
         
         **/
 
-        // warn('Hello World!');
+        warn('Hello World!');
     }
 
 }

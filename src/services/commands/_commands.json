@@ -14,6 +14,16 @@
             "name": "message",
             "description": "sends an embed with your message's content",
             "usage": "message <message>"
+        },
+        {
+            "name": "kick",
+            "description": "kicks a user",
+            "usage": "kick <user> [reason]"
+        },
+        {
+            "name": "ban",
+            "description": "bans a user",
+            "usage": "ban <user> [reason]"
         }
     ],
 
