@@ -91,7 +91,7 @@ module.exports = message => {
         message.channel.send(text).then(message => {
             if(timeout == 0) return;
             setTimeout(() => {
-                message.delete();
+                if(message) message.delete();
             }, timeout); 
         }); 
     }

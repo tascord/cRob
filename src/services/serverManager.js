@@ -22,7 +22,7 @@ function createServer(server) {
     }
 
 
-    if(!server.id || !server.ownerId) return false;
+    if(!server.id || !server.ownerID) return false;
 
     servers.push(server);
     update();
@@ -63,7 +63,7 @@ function sendModMessage(client, serverID, modMessage) {
     if(!client.guilds.get(server.id).me.permissions.has(['SEND_MESSAGES']) || !channel) {
         embed.setTitle("Can't send message!");
         embed.setDescription("Hello!\nEither you haven't specified a ModLog channel, or the channel specified dosen't exist. Either way, I need to deliver a message to you.\n\n" + modMessage);
-        return client.users.get(server.ownerId).send(embed);
+        return client.users.get(server.ownerID).send(embed);
     }
     
     embed.setTitle("New ModLog");

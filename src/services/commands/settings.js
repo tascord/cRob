@@ -14,7 +14,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
      */
 
     var server = sm.getServer(message.guild.id);
-    if(server == false) server = sm.createServer({id: message.guild.id, ownerId: message.guild.ownerID, roles: [], pallettes: [], welcome: {}});
+    if(server == false) server = sm.createServer({id: message.guild.id, ownerID: message.guild.ownerID, roles: [], pallettes: [], welcome: {}});
 
     if(!args[0]) {
 
@@ -33,7 +33,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
             else welcomeChannel = message.guild.channels.get(server.welcome.channel);
         }
 
-        return send(createEmbed(`Your Server Settings`, [{title: "Server ID", data: server.id}, {title: "Owner ID", data: server.ownerId}, {title: "Welcome Channel", data: welcomeChannel}, {title: "Welcome Image", data: server.welcome.image ? server.welcome.image : "Not Set!"}, {title: "Role Picker Roles", data: rolePickerContent}]));
+        return send(createEmbed(`Your Server Settings`, [{title: "Server ID", data: server.id}, {title: "Owner ID", data: server.ownerID}, {title: "Welcome Channel", data: welcomeChannel}, {title: "Welcome Image", data: server.welcome.image ? server.welcome.image : "Not Set!"}, {title: "Role Picker Roles", data: rolePickerContent}]));
     
     }
 

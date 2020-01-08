@@ -10,6 +10,7 @@ module.exports = fs => {
         process.exit(1);
 
         function eHas(errorName) {
+            if(!err.message) return false;
             if(err.message.indexOf(errorName) > -1) return true;
             else return false;
         }
