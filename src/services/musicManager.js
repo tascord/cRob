@@ -48,12 +48,22 @@ module.exports = {
 
     getSong: function(query, callback) {
 
+        var index = 0;
+
         yt.search(query, 2, (err, result) => {
 
             if(!result) { warn("Unable to search YouTube with given API Key!"); return false; };
             if(!result.items[0]) return false;
 
-            var hit = result.items[0];
+            while (result.items[index].id.kind != "youtube#video") { 
+                
+                //Skip non videos
+                index++;
+                if(index > 20) return false;
+
+            } 
+
+            var hit = result.items[index];
             var song = {};
 
             song.id = `https://youtube.com/watch?v=${hit.id.videoId}`;
@@ -63,6 +73,8 @@ module.exports = {
                 song.name = song.name.replace("&quot;", "\"");
                 song.name = song.name.replace("&#39;", "'");
             }
+
+            song.raw = hit;
 
             if(!callback) return song;
             return callback(song);
@@ -98,6 +110,23 @@ module.exports = {
         server.dispatcher = dispatcher;
         updateServer(server.id, server);
 
+    },
+
+    setNowPlaying: function(serverID, song) {
+        var server = getServer(serverID);
+        
+        server.nowPlaying = song;
+        updateServer(server.id, server);
+
+    },
+
+    getNowPlaying: function(serverID) {
+        var server = getServer(serverID);
+
+        
+
+        if(!server.nowPlaying) return false;
+        return server.nowPlaying;
     },
 
     getConnection: function(serverID) {

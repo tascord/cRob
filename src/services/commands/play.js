@@ -17,7 +17,18 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
     function processSong(song) {
 
         if(song == false) return send(createEmbed("Sorry, I can't find a song by that name."));
-    
+        
+        const songEmbed = new Discord.RichEmbed()
+            .setColor(config.colour)
+            .setTitle("Added song to queue")
+            .addField("Song", `[${song.name}](${song.id})`, false)
+            .addField("Channel", `[${song.raw.snippet.channelTitle}](https://www.youtube.com/channel/${song.raw.snippet.channelId})`, true)
+            .setThumbnail(song.raw.snippet.thumbnails.medium.url)
+            .setFooter(`Requested by: ${message.author.tag}`)
+            .setAuthor(client.user.username, client.user.avatarURL); 
+
+        send(songEmbed, 10);
+
         mm.addSong(message.guild.id, song);
 
         message.member.voiceChannel.join().then((connection) => {
@@ -27,7 +38,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
 
     }
 
-    function playSong(connection, serverID) {
+    async function playSong(connection, serverID) {
 
         var queue = mm.getQueue(serverID);
         if(!queue[0]) return false;
@@ -36,13 +47,11 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
 
         var song = queue[0];
 
-        var dispatcher = connection.playStream(ytdl('https://www.youtube.com/watch?v=b4efKHPueJ0', {filter: 'audioonly'}));
+        mm.setNowPlaying(serverID, song);
+        var dispatcher = connection.playStream(await ytdl(song.id, {filter: 'audio', highWaterMark: 1<<25}), {type: 'opus'});
+
         mm.setDispatcher(serverID, dispatcher);
         mm.playingSong(serverID);
-
-        ytdl('https://www.youtube.com/watch?v=b4efKHPueJ0', {filter: 'audioonly'});
-
-        console.trace(song);
         
         dispatcher.on('end', (serverID) => {
             var queue = mm.getQueue(serverID);

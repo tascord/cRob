@@ -3,7 +3,9 @@ const mm = require('../musicManager');
 exports.run = (client, message, args, send, createEmbed, config, fs, Discord) => {
 
     var queue = mm.getQueue(message.guild.id);
-    if(!queue[0]) return send(createEmbed("There are currently no songs queued!"));
+    var nowPlaying = mm.getNowPlaying(message.guild.id);
+
+    if(!queue[0] && nowPlaying == false) return send(createEmbed("There are currently no songs queued!"));
 
     var songs = [];
 
@@ -16,7 +18,8 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
     var embed = new Discord.RichEmbed()
         .setColor(config.colour)
         .setAuthor(`${message.guild.name}'s Queue`, message.guild.iconURL)
-        .setDescription(songs.join('\n\n'));
+        .addField("Now Playing", `[${nowPlaying.name}](${nowPlaying.id})`)
+        .addField("Up Next", !queue[0] ? "Nothing's queued!" : songs.join('\n\n'));
 
     send(embed);
 
