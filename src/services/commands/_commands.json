@@ -47,14 +47,11 @@
             "name": "pallette",
             "description": "a role pallete (role picker)",
             "usage": "pallette [persistent]"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "invite",
             "description": "creates an invite for me to join your server",
             "usage": "invite"
->>>>>>> master
         }
     ],
 
