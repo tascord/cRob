@@ -1,12 +1,14 @@
-{
-    "name": "Example Command",
-    "author": "tascord",
-    "website": "https://tascord.ai",
-    "version": "1.0.0",
-    "description": "An example, responds 'Hello World'",
-    "type": "command",
-    "command": "example",
-    "command_section": "Admin Commands",
-    "target": "example.js",
-    "usage": "example"
-}
+[
+    {
+        "name": "Example Command",
+        "author": "tascord",
+        "website": "https://tascord.ai",
+        "version": "1.0.0",
+        "description": "An example, responds 'Hello World'",
+        "type": "command",
+        "command": "example",
+        "command_section": "Admin Commands",
+        "target": "example.js",
+        "usage": "example"
+    }
+]

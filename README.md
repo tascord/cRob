@@ -23,4 +23,4 @@ Please, go ahead and [Submit Feature Requests](https://github.com/tascord/CRob/i
 
 ***
 ## To-do
-A lot!
+A lot! (See the [Projects Page](https://github.com/tascord/CRob/projects))

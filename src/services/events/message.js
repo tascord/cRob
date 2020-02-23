@@ -24,13 +24,16 @@ module.exports = message => {
     /* If Someone Tags The Bot Give Them Some Help */
     if(message.content == `<@!${client.user.id}>`) send(createEmbed(`Hello ${message.member.displayName}! If you need any help, run \`${config.prefix}help\``), 10)
 
+    /* Debug Only */
+    // message.channel.createInvite({unique: true}).then(invite => {
+    //     info(`[${message.author.username} | ${message.guild.name} : ${message.channel.name} (${invite})]: ${message.content}`);
+    // })
+
     /* If Someone Dosen't Use The Prefix, Ignore it */
     if(!message.content.startsWith(config.prefix)) return;
 
     const args = message.content.slice(config.prefix.length).split(' ');
     const command = args.shift().toLowerCase();
-
-    //info(`${message.author.username}: [Command: ${command}] [Args: ${args.join(', ')}]\n`);
 
     try {
         
@@ -62,6 +65,8 @@ module.exports = message => {
                 info(`Removed ${message.author.id} from the permission suppress list`);
                 return send(createEmbed("I'll continue to send you DM's if my permissions are messed up!"), 120);
             }
+
+            return send(createEmbed("Sorry, DM Commands aren't supported."));
 
         }
 

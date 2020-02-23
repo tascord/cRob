@@ -11,7 +11,7 @@ function getServer(serverID) {
         if(servers[i].id === serverID) return servers[i];
     }
 
-    return false;
+    return createServer({id: serverID, ownerID: '000000000000000', rolepicker: [], roles: [], channels: [], pallettes: [], welcome: {channel: '', image: ''}, modifyUsers: []});
 
 }
 
@@ -59,10 +59,10 @@ function sendModMessage(client, serverID, modMessage) {
 
     const embed = new Discord.RichEmbed()
     .setColor(0x7289da);
-        
-    if(!client.guilds.get(server.id).me.permissions.has(['SEND_MESSAGES']) || !channel) {
+
+    if(!client.guilds.get(server.id).me.permissions.has('SEND_MESSAGES') || !channel) {
         embed.setTitle("Can't send message!");
-        embed.setDescription("Hello!\nEither you haven't specified a ModLog channel, or the channel specified dosen't exist. Either way, I need to deliver a message to you.\n\n" + modMessage);
+        embed.setDescription("Hello!\nEither you haven't specified a ModLog channel, or the channel specified dosen't exist. Either way, I need to deliver this message to you:\n\n" + modMessage);
         return client.users.get(server.ownerID).send(embed);
     }
     
@@ -169,9 +169,28 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
 
 }
 
+function getServersByModify(userID) {
+
+    var serversOutput = []; 
+
+    for(var i = 0; i < servers.length; i++) {
+
+        //console.log(servers[i], i);
+
+        for(var j = 0; j < servers[i].modifyUsers.length; j++) {
+            if(servers[i].modifyUsers[j] == userID) serversOutput.push(servers[i]);
+        }
+    }
+
+    //console.log(serversOutput);
+    return serversOutput;
+
+}
+
 // Triggerable Functions
 exports.modifyServer       = modifyServer;
 exports.getServer          = getServer;
 exports.createServer       = createServer;
 exports.sendModMessage     = sendModMessage;
 exports.sendWelcomeMessage = sendWelcomeMessage;
+exports.getServersByModify = getServersByModify;

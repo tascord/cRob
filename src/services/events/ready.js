@@ -1,9 +1,5 @@
 const config = require('../../../config.json');
-
-const pti = require('png-to-ico');
 const fs = require('fs');
-
-const moment = require('moment');
 
 const mh = require('../moduleHandler');
 

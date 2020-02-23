@@ -14,22 +14,46 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
      */
 
     var server = sm.getServer(message.guild.id);
-    if(server == false) server = sm.createServer({id: message.guild.id, ownerID: message.guild.ownerID, roles: [], pallettes: [], welcome: {}});
+   
+    if(server.ownerID == '000000000000000') server.ownerID == message.guild.ownerID;
+    server.modifyUsers = message.guild.members.filter(m => m.permissions.has('MANAGE_GUILD')).map(m => m.id);
+    
+    server.icon = message.guild.iconURL;
+    server.name = message.guild.name;
+    server.ownerID = message.guild.owner.id;
+
+    server.rolepicker = server.rolepicker ? server.rolepicker : [];
+
+    var roles = [];
+    var channels = [];
+
+    message.guild.roles.forEach(role => {
+        roles.push({name: role.name, id: role.id});
+    });
+
+    message.guild.channels.forEach(channel => {
+        if(channel.type == 'text') channels.push({name: channel.name, id: channel.id});
+    });
+
+    server.roles = roles;
+    server.channels = channels;
+
+    sm.modifyServer(message.guild.id, server);
 
     if(!args[0]) {
 
         var rolePickerContent = "";
         
-        for(var i = 0; i < server.roles.length; i++) {
-            rolePickerContent += `${server.roles[i].emoji} | ${message.guild.roles.get(server.roles[i].role) ? message.guild.roles.get(server.roles[i].role) : "An invalid role :("}\n`;
+        for(var i = 0; i < server.rolepicker.length; i++) {
+            rolePickerContent += `${server.rolepicker[i].emoji} | ${message.guild.rolepicker.get(server.rolepicker[i].role) ? message.guild.rolepicker.get(server.rolepicker[i].role) : "An invalid role :("}\n`;
         }
 
         if(rolePickerContent == "") rolePickerContent = "The server dosen't have any roles set up yet!"; 
 
         var welcomeChannel;
-        if(!server.welcome.channel) welcome = "Not Set";
+        if(!server.welcome.channel) welcomeChannel = "Not Set";
         else {
-            if(!message.guild.channels.get(server.welcome.channel)) welcome = "A channel that no longer exists!";
+            if(!message.guild.channels.get(server.welcome.channel)) welcomeChannel = "A channel that no longer exists!";
             else welcomeChannel = message.guild.channels.get(server.welcome.channel);
         }
 
@@ -159,7 +183,7 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
                         if(args[0].match(/^<@&[0-9]{18}>$/g) == null) return send(createEmbed("You haven't tagged a valid role!"));
                         
                         var role = args[0].slice(3).slice(0, -1);
-                        if(!message.guild.roles.get(role)) return send(createEmbed("You haven't tagged a valid role!"));
+                        if(!message.guild.rolepicker.get(role)) return send(createEmbed("You haven't tagged a valid role!"));
             
                         const ereg = emojiRegex();
                         
@@ -173,19 +197,19 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
                         if(emojis.length != 1) return send(createEmbed("You haven't provided a base (not custom) emoji!"));
                         var emoji = emojis[0];
 
-                        if(!server.roles) server.roles = [];
-                        if(server.roles.length > 11) return send(createEmbed("You can't have more than 12 roles in the role picker!"));
+                        if(!server.rolepicker) server.rolepicker = [];
+                        if(server.rolepicker.length > 11) return send(createEmbed("You can't have more than 12 roles in the role picker!"));
 
-                        for(var i = 0; i < server.roles.length; i++) {
-                            if(server.roles[i].role == role) return send(createEmbed("An option with that role already exists!"));
-                            if(server.roles[i].emoji == emoji) return send(createEmbed("An option with that emoji already exists!"));
+                        for(var i = 0; i < server.rolepicker.length; i++) {
+                            if(server.rolepicker[i].role == role) return send(createEmbed("An option with that role already exists!"));
+                            if(server.rolepicker[i].emoji == emoji) return send(createEmbed("An option with that emoji already exists!"));
                         }
 
-                        server.roles.push({role: role, emoji: emoji});
+                        server.rolepicker.push({role: role, emoji: emoji});
                         sm.modifyServer(server.id, server);
                         
-                        send(createEmbed(`Added a role to the role picker! [${server.roles.length}/12]`, [], `${message.guild.roles.get(role)} : ${emoji}`));
-                        sm.sendModMessage(client, server.id, `Added a role to the role picker (${message.guild.roles.get(role)})\nThis change was made by: ${message.author}`);
+                        send(createEmbed(`Added a role to the role picker! [${server.rolepicker.length}/12]`, [], `${message.guild.rolepicker.get(role)} : ${emoji}`));
+                        sm.sendModMessage(client, server.id, `Added a role to the role picker (${message.guild.rolepicker.get(role)})\nThis change was made by: ${message.author}`);
                         
                     break;
                     
@@ -196,21 +220,21 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
                         if(args[0].match(/^<@&[0-9]{18}>$/g) == null) return send(createEmbed("You haven't tagged a valid role!"));
                         
                         var role = args[0].slice(3).slice(0, -1);
-                        if(!message.guild.roles.get(role)) return send(createEmbed("You haven't tagged a valid role!"));
+                        if(!message.guild.rolepicker.get(role)) return send(createEmbed("You haven't tagged a valid role!"));
 
-                        if(!server.roles) return send(createEmbed("You don't have any roles to remove!"));
-                        if(!server.roles[0]) return send(createEmbed("You don't have any roles to remove!"));
+                        if(!server.rolepicker) return send(createEmbed("You don't have any roles to remove!"));
+                        if(!server.rolepicker[0]) return send(createEmbed("You don't have any roles to remove!"));
 
                         var _roles = [];
                         
-                        for(var i = 0; i < server.roles.length; i++) {
-                            if(server.roles[i].role != role) _roles.push(server.roles[i].role);
+                        for(var i = 0; i < server.rolepicker.length; i++) {
+                            if(server.rolepicker[i].role != role) _roles.push(server.rolepicker[i].role);
                         }
                         
-                        server.roles = _roles;
+                        server.rolepicker = _roles;
 
                         sm.modifyServer(server.id, server);
-                        send(createEmbed(`Removed a role from the role picker! [${server.roles.length}/12]`));
+                        send(createEmbed(`Removed a role from the role picker! [${server.rolepicker.length}/12]`));
                         
                         sm.sendModMessage(client, server.id, `Removed a role to the role picker ($${role})\nThis change was made by: ${message.author}`);
                 break;
