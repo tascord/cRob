@@ -6,6 +6,9 @@
  */
 
 
+var events = require('events');
+var clientEmitter = new events.EventEmitter();
+
 var client = false;
 
 module.exports = {
@@ -22,7 +25,13 @@ module.exports = {
 
     clientGet: function() {
         return client;
-    }
+    },
+
+    clientAction: function(action) {
+        clientEmitter.emit('action', action);
+    }, 
+
+    clientEmitter: clientEmitter
 
     /**
     * TODO:

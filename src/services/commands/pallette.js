@@ -4,23 +4,23 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
 
     var server = sm.getServer(message.guild.id);
     if(server == false) return send(createEmbed("This server dosen't have any roles yet!"));
-    if(!server.roles) return send(createEmbed("This server dosen't have any roles yet!"));
-    if(!server.roles[0]) return send(createEmbed("This server dosen't have any roles yet!"));
+    if(!server.rolepicker) return send(createEmbed("This server dosen't have any roles yet!"));
+    if(!server.rolepicker[0]) return send(createEmbed("This server dosen't have any roles yet!"));
 
     var content = "";
 
     var _roles = [];
 
-    for(var i = 0; i < server.roles.length; i++) {
+    for(var i = 0; i < server.rolepicker.length; i++) {
 
-        if(!message.guild.roles.get(server.roles[i].role)) continue;
+        if(!message.guild.rolepicker.get(server.rolepicker[i].role)) continue;
         
-        _roles.push(server.roles[i]);
-        content += `\n${server.roles[i].emoji} | ${message.guild.roles.get(server.roles[i].role)}`;
+        _roles.push(server.rolepicker[i]);
+        content += `\n${server.rolepicker[i].emoji} | ${message.guild.rolepicker.get(server.rolepicker[i].role)}`;
 
     }
 
-    if(server.roles != _roles) server.roles = _roles;
+    if(server.rolepicker != _roles) server.rolepicker = _roles;
 
     var persistent = false;
     if(args[0] === "persistent") persistent = true;
@@ -29,8 +29,8 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
     
     message.channel.send(createEmbed('Role Pallette', [], `Select a role to toggle having it!\n${content}`)).then((message) => {   
 
-        for(var i = 0; i < server.roles.length; i++) {
-            message.react(server.roles[i].emoji);
+        for(var i = 0; i < server.rolepicker.length; i++) {
+            message.react(server.rolepicker[i].emoji);
         }
 
         if(!server.pallettes) server.pallettes = [];

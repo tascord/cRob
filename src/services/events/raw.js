@@ -60,6 +60,46 @@ module.exports = (client, event) => {
         if(event.t === "MESSAGE_REACTION_ADD") member.addRole(role);
         else member.removeRole(role);
 
+    }
+
+    if(event.t === "GUILD_MEMBER_UPDATE") {
+
+        var guild = client.guilds.find(g => g.id === event.d.guild_id);
+        var server = sm.getServer(guild.id);
+
+        server.modifyUsers = guild.members.filter(m => m.permissions.has('MANAGE_GUILD')).map(m => m.id)
+        
+        sm.modifyServer(guild.id, server);
+    
+
+    }
+
+    if(event.t === "GUILD_UPDATE") {
+
+        var guild = client.guilds.find(g => g.id === event.d.guild_id);
+        var server = sm.getServer(guild.id);
+
+        //console.log(guild.roles, guild.channels);
+        
+        server.ownerID = guild.owner.id;
+        server.icon = guild.iconURL;
+        server.name = guild.name;
+
+        var roles = [];
+        var channels = [];
+
+        guild.roles.forEach(role => {
+            roles.push({name: role.name, id: role.id});
+        });
+
+        guild.channels.forEach(channel => {
+            if(channel.type == 'text') channels.push({name: channel.name, id: channel.id});
+        });
+
+        server.roles = roles;
+        server.channels = channels;
+
+        sm.modifyServer(guild.id, server);    
 
     }
 

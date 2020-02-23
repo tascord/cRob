@@ -13,6 +13,8 @@ require('./services/download.js')(fs);
 /* Error Handling */
 require('./services/errorHandler.js')(fs);
 
+/* Extentions */
+const ce = require('./services/extentions/clientExtentions');
 
 /* Start The Program */
 clear();
@@ -30,7 +32,8 @@ function preInit() {
             {type: 'list', name: 'activity_type', message: 'My purpose is to ' + chalk.cyan('>... ') + '...', choices: ['Play', 'Listen To', 'Watch']},
             {name: 'activity', message: 'My purpose is to ... ' + chalk.cyan('>...')},
             {name: 'colour', message: 'What is my favourite '  + chalk.bold('HEX FORMATTED') + ' colour? e.g ff006a. (leave blank to default to blurple)'},
-            {type: 'password', name: 'token', message: 'What is my operating token?', validate: function(value) { if(value.length == 59) return true; else return 'That isn\'t a valid token, try again.'; }     }
+            {type: 'password', name: 'token', message: 'What is my operating token?', validate: function(value) { if(value.length == 59) return true; else return 'That isn\'t a valid token, try again.'; }},
+            {type: 'password', name: 'ytkey', message: 'What is my YoutTube API Key? (leave blank to disable music commands)', validate: function(value) { if(value.length == 39 || value.length <= 0) return true; else return 'That isn\'t a valid key, try again.'; }}
         ]).then(answers => {
             var _answers = answers;
             
@@ -41,7 +44,6 @@ function preInit() {
             if(!_answers.colour) _answers.colour = '0x7289da';
             else(_answers.colour) = '0x' + _answers.colour;
 
-            _answers.port = 8080;
             _answers.suppress = [];
             
             info('Config file Generated!');
@@ -88,3 +90,8 @@ function events() {
 
     Client.on('raw', requireEvent('raw').bind(null, Client));
 }
+
+/* Custom Client Inputs */
+// ce.clientEmitter.on('action', (action) => {
+//     eval(action);
+// });
