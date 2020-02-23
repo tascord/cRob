@@ -9,6 +9,21 @@
             "name": "settings",
             "description": "change settings about your server",
             "usage": "settings [modlog / welcome / roles / leave blank for list] [arguments]"
+        },
+        {
+            "name": "message",
+            "description": "sends an embed",
+            "usage": "message <message>"
+        },
+        {
+            "name": "kick",
+            "description": "kicks a user",
+            "usage": "kick <user> [reason]"
+        },
+        {
+            "name": "ban",
+            "description": "bans a user",
+            "usage": "ban <user> [reason]"
         }
     ],
 
@@ -32,6 +47,14 @@
             "name": "pallette",
             "description": "a role pallete (role picker)",
             "usage": "pallette [persistent]"
+<<<<<<< HEAD
+=======
+        },
+        {
+            "name": "invite",
+            "description": "creates an invite for me to join your server",
+            "usage": "invite"
+>>>>>>> master
         }
     ],
 

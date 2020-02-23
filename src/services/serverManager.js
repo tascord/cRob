@@ -2,6 +2,7 @@ const fs = require('fs');
 const Canvas = require('canvas');
 const Discord = require('discord.js');
 
+if(!fs.existsSync('./src/services/servers/')) fs.mkdirSync('./src/services/servers');
 if(!fs.existsSync('./src/services/servers/servers.json')) fs.writeFileSync('./src/services/servers/servers.json', '[]');
 var servers = JSON.parse(fs.readFileSync('./src/services/servers/servers.json'));
 
@@ -58,9 +59,15 @@ function sendModMessage(client, serverID, modMessage) {
     var channel = guild.channels.get(server.modLog);
 
     const embed = new Discord.RichEmbed()
+<<<<<<< HEAD
     .setColor(0x7289da);
 
     if(!client.guilds.get(server.id).me.permissions.has('SEND_MESSAGES') || !channel) {
+=======
+        .setColor(0x7289da);
+        
+    if(!client.guilds.get(server.id).me.permissions.has(['SEND_MESSAGES']) || !channel) {
+>>>>>>> master
         embed.setTitle("Can't send message!");
         embed.setDescription("Hello!\nEither you haven't specified a ModLog channel, or the channel specified dosen't exist. Either way, I need to deliver this message to you:\n\n" + modMessage);
         return client.users.get(server.ownerID).send(embed);
@@ -128,7 +135,7 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
         bottomText = bottomText.replace('%n', memberName);
     }   
 
-    var backgroundURL = server.welcome.image || "http://tascord.ai/media/default_member_join.png";
+    var backgroundURL = server.welcome.image || "https://raw.githubusercontent.com/tascord/CRob/master/src/Default%20Header.png";
 
     const canvas = Canvas.createCanvas(1092, 468);
     const ctx = canvas.getContext('2d');
