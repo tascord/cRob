@@ -35,23 +35,6 @@
         }
     ],
 
-    "music": [
-        {
-            "name": "play",
-            "description": "add a song to the queue",
-            "usage": "play"
-        },
-        {
-            "name": "skip",
-            "description": "skip the currently playing song",
-            "usage": "skip"
-        },
-        {
-            "name": "queue",
-            "description": "shows the list of queued songs",
-            "usage": "queue [clear / remove <song id>]"
-        }
-    ],
-
+    "music": [],
     "currency": []
 }
