@@ -7,5 +7,7 @@ Anyone is permitted to copy and distribute this software,
 with or without modification as long, as it is in no way
 used to intentionally hurt people, or communitys.
 
+Due to the nature of Open Source, no liability is provided.
+
 be nice please public licence
 TERMS AND CONDITIONS FOR COPY, DISTRIBUTION AND MODIFICATION
