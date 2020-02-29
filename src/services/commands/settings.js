@@ -51,11 +51,8 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
         if(rolePickerContent == "") rolePickerContent = "The server dosen't have any roles set up yet!"; 
 
         var welcomeChannel;
-<<<<<<< HEAD
+
         if(!server.welcome.channel) welcomeChannel = "Not Set";
-=======
-        if(!server.welcome.channel) welcomeChannel = "Not Set!";
->>>>>>> master
         else {
             if(!message.guild.channels.get(server.welcome.channel)) welcomeChannel = "A channel that     no longer exists!";
             else welcomeChannel = message.guild.channels.get(server.welcome.channel);
