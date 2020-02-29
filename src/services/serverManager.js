@@ -2,48 +2,27 @@ const fs = require('fs');
 const Canvas = require('canvas');
 const Discord = require('discord.js');
 
-if(!fs.existsSync('./src/services/servers/')) fs.mkdirSync('./src/services/servers');
-if(!fs.existsSync('./src/services/servers/servers.json')) fs.writeFileSync('./src/services/servers/servers.json', '[]');
-var servers = JSON.parse(fs.readFileSync('./src/services/servers/servers.json'));
+const db = require('quick.db');
+const servers = new db.table('servers');
 
 function getServer(serverID) {
 
-    for(var i = 0; i < servers.length; i++) {
-        if(servers[i].id === serverID) return servers[i];
-    }
-
+    if(servers.has(serverID)) return servers.get(serverID);
     return createServer({id: serverID, ownerID: '000000000000000', rolepicker: [], roles: [], channels: [], pallettes: [], welcome: {channel: '', image: ''}, modifyUsers: []});
 
 }
 
 function createServer(server) {
-
-    for(var i = 0; i < servers.length; i++) {
-        if(servers[i].id === server.id) return false;
-    }
-
-
-    if(!server.id || !server.ownerID) return false;
-
-    servers.push(server);
-    update();
+  
+    if(servers.has(server.id)) return false; 
+    servers.set(server.id, server); 
 
     return server;
 
 }
 
 function modifyServer(serverID, server) {
-
-    var _servers = [];
-
-    for(var i = 0; i < servers.length; i++) {
-        if(servers[i].id != serverID) _servers.push(servers[i]);
-        else _servers.push(server);
-    }
-
-    servers = _servers;
-    update();
-
+    servers.set(serverID, server);
 }
 
 function update() {
@@ -52,14 +31,15 @@ function update() {
 
 function sendModMessage(client, serverID, modMessage) {
 
-    var server = getServer(serverID);
-    if(server === false) return false;
+    if(!servers.has(serverID)) return false;
+    var server = servers.get(serverID);
 
     var guild   = client.guilds.get(server.id);
     var channel = guild.channels.get(server.modLog);
 
     const embed = new Discord.RichEmbed()
-    .setColor(0x7289da);
+        .setColor(0x7289da);
+
         
     if(!client.guilds.get(server.id).me.permissions.has(['SEND_MESSAGES']) || !channel) {
         embed.setTitle("Can't send message!");
@@ -71,7 +51,6 @@ function sendModMessage(client, serverID, modMessage) {
     embed.setDescription(modMessage);
 
     channel.send(embed);
-    
 
 }
 
@@ -92,8 +71,9 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
         
     };
 
-    var server = getServer(serverID);
-    if(server === false) return false;
+    if(!servers.has(serverID)) return false;
+    var server = servers.get(serverID);
+    
     if(!server.welcome.channel || !client) return false;
 
     if(!topText || !middleText || !bottomText) return false;
@@ -173,17 +153,17 @@ async function sendWelcomeMessage(client, serverID, topText, middleText, bottomT
 function getServersByModify(userID) {
 
     var serversOutput = []; 
+    var serverList = servers.all();
 
-    for(var i = 0; i < servers.length; i++) {
+    for(var i = 0; i < serverList.length; i++) {
 
-        //console.log(servers[i], i);
+        var server = servers.get(serverList[i].ID);
 
-        for(var j = 0; j < servers[i].modifyUsers.length; j++) {
-            if(servers[i].modifyUsers[j] == userID) serversOutput.push(servers[i]);
+        for(var j = 0; j < server.modifyUsers.length; j++) {
+            if(server.modifyUsers[j] == userID) serversOutput.push(server);
         }
     }
 
-    //console.log(serversOutput);
     return serversOutput;
 
 }
