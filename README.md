@@ -11,7 +11,7 @@ To download cRob in its most up to date form, head over to the [Releases Page](h
 
 ***
 ## Modules
-To learn about creating modules, head over to the [Modules Wiki Page](https://app.gitbook.com/@tascord/s/crob/api/modules) or head over to [The Module Spotlight](https://app.gitbook.com/@tascord/s/crob/module-spotlight) to find some neat modules you might like!
+To learn about creating modules, head over to the [Modules Wiki Page](https://crob.tascord.ai/api/modules) or head over to [The Module Spotlight](https://crob.tascord.ai/module-spotlight) to find some neat modules you might like!
 
 ***
 ## Bugs
