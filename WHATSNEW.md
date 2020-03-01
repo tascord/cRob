@@ -7,4 +7,6 @@ Recently we've:
 
 * Laid the groundwork for a currency and shop system, development for this should start soon on the [beta](https://github.com/tascord/CRob/tree/beta) branch
 
+* Condensed the help command, allowing for more commands to be stored
+
 [**Check out the changes**](https://github.com/tascord/CRob)
