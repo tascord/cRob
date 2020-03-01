@@ -12,9 +12,6 @@ module.exports = {
 
     getServersByModUser: function(userID) {
         return sm.getServersByModify(userID);
-    }
-
-
-
+    },
 
 }

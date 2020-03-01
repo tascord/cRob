@@ -12,6 +12,11 @@ function getServer(serverID) {
 
 }
 
+function deleteServer(serverID) {
+    if(!servers.has(serverID)) return false;
+    servers.delete(serverID);
+}
+
 function createServer(server) {
   
     if(servers.has(server.id)) return false; 
@@ -174,3 +179,4 @@ exports.createServer       = createServer;
 exports.sendModMessage     = sendModMessage;
 exports.sendWelcomeMessage = sendWelcomeMessage;
 exports.getServersByModify = getServersByModify;
+exports.deleteServer       = deleteServer;

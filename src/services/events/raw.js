@@ -12,6 +12,8 @@ module.exports = (client, event) => {
 
     if(event.t == null) return;
 
+    // warn(event.t)
+
     // Custom modules
     var module = mh.getModuleFromEvent(event.t);
     if(module) {
@@ -20,9 +22,11 @@ module.exports = (client, event) => {
     
     if(event.t === "MESSAGE_DELETE") {
 
+        if(!event.d.guild_id) return;
+
         var server = sm.getServer(event.d.guild_id);
         
-        if(server === false) return;
+        if(server == false) return;
         if(!server.pallettes[0]) return;
 
         var _pallettes = [];
@@ -102,5 +106,13 @@ module.exports = (client, event) => {
         sm.modifyServer(guild.id, server);    
 
     }
+
+    if(event.t === "GUILD_DELETE") {
+
+        sm.deleteServer(event.d.id);
+
+    }
+
+    
 
 }
