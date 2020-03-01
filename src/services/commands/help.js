@@ -8,35 +8,35 @@ exports.run = (client, message, args, send, createEmbed, config, fs, Discord) =>
 
     if(message.deletable) message.delete();
 
-    var text = [];
+    var fields = [];
 
     for(var i in commands) {
-        text.push(`\n**${i.charAt(0).toUpperCase() + i.slice(1)} Commands**`);
+        if(!fields[i]) fields[i] = {title: `${i.charAt(0).toUpperCase()}${i.slice(1)} Commands`, data: ""};
         for(var j in commands[i]) {
-            text.push(`**${commands[i][j].name}** - ${commands[i][j].description}. Usage: *${commands[i][j].usage}*`);
+            var command = commands[i][j];
+            fields[i].data += (`**${command.name}** - ${command.description}. Usage: *${command.usage}*\n`);
         }
     }
 
     var modules = mh.getCommands();
     if(modules) {
-        text.push(`\n**Custom Commands**`);
+        
+        fields[fields.length] = {title: "Custom Commands", data: ""};
+        
         for(var i in modules) {
-            text.push(`**${modules[i].command}** - ${modules[i].description != undefined ? modules[i].description : "No description provided, who knows what this does"}. Usage: *${modules[i].usage}*`);
+            fields[fields.length - 1].data += `**${modules[i].command}** - ${modules[i].description != undefined ? modules[i].description : "No description provided, who knows what this does"}. Usage: *${modules[i].usage}*\n`;
         }
     }
 
+    fields.unshift({
+        title: "**Bugs, Hanging & Crashing**",
+        data: "If a command you're running is behaving unexpectedly, hanging or crashing the bot, please report it [here](https://github.com/tascord/cRob)."
+    })
+
     send(createEmbed(
         "Command List & Help",
-        [
-            {
-                title: "**Commands**\nKey: <mandatory> [optional] (permissions needed)",
-                data: text.join('\n')
-            },
-            {
-                title: "**Bugs, Hanging & Crashing**",
-                data: "If a command you're running is behaving unexpectedly, hanging or crashing the bot, please report it [here](https://github.com/tascord/cRob)."
-            }
-        ]
+        fields,
+        "Key: <mandatory> [optional] (permissions needed)"
     ), 30);
 
 
