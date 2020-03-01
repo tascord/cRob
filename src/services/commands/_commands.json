@@ -53,8 +53,5 @@
             "description": "creates an invite for me to join your server",
             "usage": "invite"
         }
-    ],
-
-    "music": [],
-    "currency": []
+    ]
 }
