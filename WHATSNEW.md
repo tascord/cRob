@@ -9,4 +9,6 @@ Recently we've:
 
 * Condensed the help command, allowing for more commands to be stored
 
+* Removed empty fields from _commands.json
+
 [**Check out the changes**](https://github.com/tascord/CRob)
