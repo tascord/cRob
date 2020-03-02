@@ -1,13 +1,16 @@
-be nice please public license
-Version 1, FEBUARY 2020
+Be Nice Please Public License
+Version 2, FEBUARY 2020
  
-Copyright (C) 2020 Oscar Hill <admin@tascord.ai>
+Copyright (C) 2020 Milo Wheeler <milowheeler@protonmail.com>, Oscar Hill <admin@tascord.ai>
 
-Anyone is permitted to copy and distribute this software,
-with or without modification as long, as it is in no way
-used to intentionally hurt people, or communitys.
+Permission is granted, free of charge, to any person obtaining a copy of this
+"Software", to the rights to, use, copy, modify, merge, publish, distribute, and/or
+sell copies of the Software without restriction, this holds true as long as the 
+software is not used to intentionally hurt people, and/or communities emotionally
+or physically.
 
-Due to the nature of Open Source, no liability is provided.
+Due to the nature of Open Source, no liability or warranty of any kind is provided
+with this Software.
 
-be nice please public license
-TERMS AND CONDITIONS FOR COPY, DISTRIBUTION AND MODIFICATION
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
