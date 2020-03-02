@@ -1,4 +1,4 @@
-be nice please public licence
+be nice please public license
 Version 1, FEBUARY 2020
  
 Copyright (C) 2020 Oscar Hill <admin@tascord.ai>
@@ -9,5 +9,5 @@ used to intentionally hurt people, or communitys.
 
 Due to the nature of Open Source, no liability is provided.
 
-be nice please public licence
+be nice please public license
 TERMS AND CONDITIONS FOR COPY, DISTRIBUTION AND MODIFICATION
