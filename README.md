@@ -1,3 +1,5 @@
+[![forthebadge](https://forthebadge.com/images/badges/reading-6th-grade-level.svg)](https://forthebadge.com)
+
 # CRob
 #### Modular easy Discord.JS Discord bot!
 
