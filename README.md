@@ -4,7 +4,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/gluten-free.svg)](https://forthebadge.com)
 
 # cRob
-#### A simple, modular easy Discord.JS bot!
+A simple, modular easy Discord.JS bot!
 
 ***
 ## Forewarning
