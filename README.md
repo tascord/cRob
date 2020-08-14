@@ -4,11 +4,11 @@
 [![forthebadge](https://forthebadge.com/images/badges/gluten-free.svg)](https://forthebadge.com)
 
 # cRob
-A simple, modular easy Discord.JS bot!
+A simple, easy, customisable and modular Discord.JS discord bot!
 
 ***
 ## Forewarning
-This project is still in a pre-release phase, s expect a few issues, at least untill release.
+This project is still in a pre-release phase, so expect a few issues, at least until release.
 
 The commands, pre-installed modules & Wiki aren't completely ready yet. [See Issues](https://github.com/tascord/cRob#Bugs).
 
@@ -20,7 +20,7 @@ Please make sure you have [NodeJS](https://nodejs.org) installed, it is required
 
 ***
 ## Modules
-To learn about creating modules, head over to the [modules wiki page](https://crob.tascord.ai/api/modules) or head over to [the module spotlight](https://crob.tascord.ai/module-spotlight) to find some neat modules you might like!
+To learn about creating modules, head over to the [modules wiki page](https://crob.tascord.ai/api/modules) or head over to [the module spotlight](https://crob.tascord.ai/module-spotlight) to find some neat modules you might like and add it to your instance of cRob!
 
 ***
 ## Bug Reporting & Support
@@ -30,8 +30,8 @@ If you need help with your specific instance of cRob, run `-ticket open` in the 
 
 ***
 ## Contributing and Feature Request
-Please, go ahead and [submit feature requests](https://github.com/tascord/CRob/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=) if you think the bot is lacking something / could be improved! Also, start coding! If you want some stuff changed, go ahead and change it. If the community likes it, we'll merge it right here into the official branch!
+Please, go ahead and [submit feature requests](https://github.com/tascord/CRob/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=) if you think the bot is lacking something / could be improved!
 
-***
-## To-do
-A lot! (See the [Projects Page](https://github.com/tascord/CRob/projects))
+Also, start coding, if you want some stuff changed, go ahead and change it!
+
+If the community likes it, we'll merge it right here into the official branch!
